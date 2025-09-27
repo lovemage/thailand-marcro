@@ -2,6 +2,10 @@
   publish = "."
   command = "echo 'Marco Academic 站點部署完成'"
 
+# 確保正確的根目錄
+[build.processing]
+  skip_processing = false
+
 [build.environment]
   NODE_VERSION = "18"
 
