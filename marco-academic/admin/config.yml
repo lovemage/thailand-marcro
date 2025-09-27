@@ -32,7 +32,7 @@ collections:
     files:
       - label: "重新部署網站"
         name: "deploy"
-        file: "_data/deploy.yml"
+        file: "marco-academic/_data/deploy.yml"
         fields:
           - label: "點擊重新部署"
             name: "deploy_trigger"
@@ -50,7 +50,7 @@ collections:
             hint: "可選：本次部署的說明"
   - name: "properties"
     label: "精選房產項目"
-    folder: "_data/properties"
+    folder: "marco-academic/_data/properties"
     create: true
     slug: "{{slug}}"
     fields:
@@ -69,7 +69,7 @@ collections:
 
   - name: "youtube_videos"
     label: "Marco頻道精選"
-    folder: "_data/youtube"
+    folder: "marco-academic/_data/youtube"
     create: true
     slug: "{{slug}}"
     fields:
@@ -83,7 +83,7 @@ collections:
 
   - name: "youtube_shorts"
     label: "Marco短影片精選"
-    folder: "_data/shorts"
+    folder: "marco-academic/_data/shorts"
     create: true
     slug: "{{slug}}"
     fields:
@@ -96,7 +96,7 @@ collections:
 
   - name: "blog_articles"
     label: "最新資訊文章"
-    folder: "_data/articles"
+    folder: "marco-academic/_data/articles"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
