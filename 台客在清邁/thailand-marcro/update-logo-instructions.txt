@@ -1,0 +1,5 @@
+請將您提供的logo圖片儲存為:
+/Users/yifubai/Downloads/臺客在清邁/images/logo-new.png
+
+網站已經更新為使用新的logo檔案路徑。
+原始logo已備份為 logo-original.png
