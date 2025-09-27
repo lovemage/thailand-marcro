@@ -49,15 +49,43 @@
 							</div>
 						</div>
 
+						<!-- Mobile Menu Trigger -->
+						<div class="primary-menu-trigger order-3 order-lg-2 ms-auto ms-sm-3">
+							<button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+								<span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+							</button>
+						</div>
+
+						<!-- Header Misc -->
+						<div class="header-misc order-2 order-lg-last ms-auto d-none d-sm-flex">
+							<div class="d-flex justify-content-center w-100 py-4">
+								<a href="https://www.facebook.com/台客在清邁-1032527546930487" class="social-icon si-small rounded-circle bg-contrast-200 mx-lg-1 h-bg-facebook" style="--cnvs-socialicon-border: 0; --cnvs-socialicon-lineheight: 2rem">
+									<i class="fa-brands fa-facebook-f"></i>
+									<i class="fa-brands fa-facebook-f"></i>
+								</a>
+
+								<a href="https://weibo.com/6401460472/profile?topnav=1&wvr=6" class="social-icon si-small rounded-circle bg-contrast-200 mx-lg-1 h-bg-weibo" style="--cnvs-socialicon-border: 0; --cnvs-socialicon-lineheight: 2rem">
+									<i class="fa-brands fa-weibo"></i>
+									<i class="fa-brands fa-weibo"></i>
+								</a>
+
+								<a href="#" class="social-icon si-small rounded-circle bg-contrast-200 mx-lg-1 h-bg-line" style="--cnvs-socialicon-border: 0; --cnvs-socialicon-lineheight: 2rem" title="LINE: angra308">
+									<i class="fa-brands fa-line"></i>
+									<i class="fa-brands fa-line"></i>
+								</a>
+							</div>
+						</div>
+
 						<!-- Primary Navigation -->
-						<nav class="primary-menu order-2 order-lg-2 with-arrows">
-							<ul class="one-page-menu menu-container" data-easing="easeInOutExpo" data-speed="1250" data-offset="0">
-								<li class="menu-item"><a class="menu-link" href="index.html#section-about" data-href="#section-about"><div>關於Marco</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-works" data-href="#section-works"><div>服務項目</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-experience" data-href="#section-experience"><div>專業經歷</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-journal" data-href="#section-journal"><div>Marco頻道</div></a></li>
-								<li class="menu-item current"><a class="menu-link" href="properties.html"><div>房地產項目</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="news.html"><div>房產資訊</div></a></li>
+						<nav class="primary-menu order-last order-lg-2 with-arrows">
+
+							<ul class="menu-container one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="0">
+								<li class="menu-item"><a class="menu-link" href="index.html#section-about" data-href="#section-about"><div><i class="bi-person-circle"></i> 關於Marco</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-works" data-href="#section-works"><div><i class="bi-briefcase"></i> 服務項目</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-experience" data-href="#section-experience"><div><i class="bi-person-gear"></i> 專業經歷</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-journal" data-href="#section-journal"><div><i class="bi-journal-text"></i> Marco頻道</div></a></li>
+								<li class="menu-item current"><a class="menu-link" href="properties.html"><div><i class="bi-building"></i> 房地產項目</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="news.html"><div><i class="bi-pencil"></i> 房產資訊</div></a></li>
 							</ul>
 
 							<!-- Top Search -->
@@ -71,25 +99,6 @@
 
 						</nav>
 
-						<!-- Top Social -->
-						<div class="order-3 order-lg-3 d-flex align-items-center">
-							<a href="#" class="social-icon si-small text-white si-facebook">
-								<i class="fa-brands fa-facebook-f"></i>
-								<i class="fa-brands fa-facebook-f"></i>
-							</a>
-							<a href="#" class="social-icon si-small text-white si-weibo">
-								<i class="fa-brands fa-weibo"></i>
-								<i class="fa-brands fa-weibo"></i>
-							</a>
-							<a href="#" class="social-icon si-small text-white si-line">
-								<i class="fa-brands fa-line"></i>
-								<i class="fa-brands fa-line"></i>
-							</a>
-							<a href="#" id="top-search-trigger" class="top-search-trigger">
-								<i class="uil uil-search"></i><i class="bi-x-lg"></i>
-							</a>
-						</div>
-
 					</div>
 				</div>
 			</div>
@@ -98,12 +107,49 @@
 
 		<!-- Content -->
 		<section id="content">
-			<div class="content-wrap py-0 px-4" style="padding-top: 80px !important; margin-left: 300px !important;">
-				<!-- 電腦端左側導航補償 -->
+			<div class="content-wrap py-0 px-4" style="padding-top: 80px !important;">
+				<!-- 響應式導航補償 -->
 				<style>
+					/* 電腦端左側導航補償 */
+					@media (min-width: 992px) {
+						.content-wrap {
+							margin-left: 300px !important;
+						}
+					}
+					/* 手機端和平板端正常顯示 */
 					@media (max-width: 991.98px) {
 						.content-wrap {
 							margin-left: 0 !important;
+							padding-left: 15px !important;
+							padding-right: 15px !important;
+						}
+						.container {
+							padding-left: 15px;
+							padding-right: 15px;
+						}
+						/* 移動端房產詳情頁面優化 */
+						.property-sidebar {
+							margin-top: 30px;
+						}
+						.property-image-container img {
+							width: 100%;
+							height: auto;
+						}
+						.card {
+							margin-bottom: 20px;
+						}
+						/* 移動端按鈕優化 */
+						.btn {
+							width: 100%;
+							margin-bottom: 10px;
+						}
+						/* 移動端文字優化 */
+						.property-details h2,
+						.property-details h3 {
+							font-size: 1.5rem;
+						}
+						.property-info-item {
+							font-size: 0.9rem;
 						}
 					}
 				</style>

@@ -75,16 +75,25 @@
 						</div>
 
 						<!-- Primary Navigation -->
-						<nav class="primary-menu order-last order-lg-2">
+						<nav class="primary-menu order-last order-lg-2 with-arrows">
 
-							<ul class="menu-container">
-								<li class="menu-item"><a class="menu-link" href="index.html#section-about"><div><i class="bi-person-circle"></i> 關於Marco</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-works"><div><i class="bi-briefcase"></i> 服務項目</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-experience"><div><i class="bi-person-gear"></i> 專業經歷</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="index.html#section-journal"><div><i class="bi-journal-text"></i> Marco頻道</div></a></li>
+							<ul class="menu-container one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="0">
+								<li class="menu-item"><a class="menu-link" href="index.html#section-about" data-href="#section-about"><div><i class="bi-person-circle"></i> 關於Marco</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-works" data-href="#section-works"><div><i class="bi-briefcase"></i> 服務項目</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-experience" data-href="#section-experience"><div><i class="bi-person-gear"></i> 專業經歷</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="index.html#section-journal" data-href="#section-journal"><div><i class="bi-journal-text"></i> Marco頻道</div></a></li>
 								<li class="menu-item current"><a class="menu-link" href="properties.html"><div><i class="bi-building"></i> 房地產項目</div></a></li>
 								<li class="menu-item"><a class="menu-link" href="news.html"><div><i class="bi-pencil"></i> 房產資訊</div></a></li>
 							</ul>
+
+							<!-- Top Search -->
+							<div id="top-search" class="top-search-form">
+								<div class="container">
+									<form action="search.html" method="get">
+										<input type="text" name="q" class="form-control" value="" placeholder="輸入搜索關鍵字..." autocomplete="off">
+									</form>
+								</div>
+							</div>
 
 						</nav>
 
@@ -97,12 +106,25 @@
 
 		<!-- Content -->
 		<section id="content">
-			<div class="content-wrap py-0 px-4" style="padding-top: 80px !important; margin-left: 300px !important;">
-				<!-- 電腦端左側導航補償 -->
+			<div class="content-wrap py-0 px-4" style="padding-top: 80px !important;">
+				<!-- 響應式導航補償 -->
 				<style>
+					/* 電腦端左側導航補償 */
+					@media (min-width: 992px) {
+						.content-wrap {
+							margin-left: 300px !important;
+						}
+					}
+					/* 手機端和平板端正常顯示 */
 					@media (max-width: 991.98px) {
 						.content-wrap {
 							margin-left: 0 !important;
+							padding-left: 15px !important;
+							padding-right: 15px !important;
+						}
+						.container {
+							padding-left: 15px;
+							padding-right: 15px;
 						}
 					}
 				</style>
