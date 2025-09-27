@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS 數據測試 - Marco Academic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #ECA92D;
+            padding-bottom: 10px;
+        }
+        .item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #ECA92D;
+        }
+        .error {
+            color: red;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            color: green;
+            background: #e6ffe6;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .debug {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CMS 數據測試頁面</h1>
+        <p>此頁面用於測試 Netlify CMS 數據是否能正確加載</p>
+        
+        <div id="debug-info" class="debug">
+            <strong>調試信息：</strong><br>
+            <span id="debug-text">初始化中...</span>
+        </div>
+
+        <div class="section">
+            <h2>精選房產項目</h2>
+            <div id="properties-container" class="loading">載入中...</div>
+        </div>
+
+        <div class="section">
+            <h2>YouTube 影片</h2>
+            <div id="videos-container" class="loading">載入中...</div>
+        </div>
+
+        <div class="section">
+            <h2>YouTube Shorts</h2>
+            <div id="shorts-container" class="loading">載入中...</div>
+        </div>
+
+        <div class="section">
+            <h2>最新文章</h2>
+            <div id="articles-container" class="loading">載入中...</div>
+        </div>
+    </div>
+
+    <script src="js/cms-loader.js"></script>
+    <script>
+        // 調試函數
+        function updateDebug(message) {
+            const debugText = document.getElementById('debug-text');
+            const timestamp = new Date().toLocaleTimeString();
+            debugText.innerHTML += `<br>[${timestamp}] ${message}`;
+        }
+
+        // 測試 CMS 數據加載
+        async function testCMSData() {
+            updateDebug('開始測試 CMS 數據加載...');
+            
+            const cmsLoader = new CMSLoader();
+            
+            try {
+                // 測試房產項目
+                updateDebug('載入房產項目數據...');
+                const properties = await cmsLoader.loadMarkdownFiles('properties');
+                const propertiesContainer = document.getElementById('properties-container');
+                
+                if (properties && properties.length > 0) {
+                    propertiesContainer.innerHTML = `<div class="success">成功載入 ${properties.length} 個房產項目</div>`;
+                    properties.forEach((property, index) => {
+                        propertiesContainer.innerHTML += `
+                            <div class="item">
+                                <strong>${property.title || '無標題'}</strong><br>
+                                類別: ${property.category || '未分類'}<br>
+                                狀態: ${property.published ? '已發布' : '未發布'}<br>
+                                描述: ${(property.description || '無描述').substring(0, 100)}...
+                            </div>
+                        `;
+                    });
+                    updateDebug(`房產項目載入成功: ${properties.length} 項`);
+                } else {
+                    propertiesContainer.innerHTML = '<div class="error">無法載入房產項目數據</div>';
+                    updateDebug('房產項目載入失敗');
+                }
+
+                // 測試 YouTube 影片
+                updateDebug('載入 YouTube 影片數據...');
+                const videos = await cmsLoader.loadMarkdownFiles('youtube');
+                const videosContainer = document.getElementById('videos-container');
+                
+                if (videos && videos.length > 0) {
+                    videosContainer.innerHTML = `<div class="success">成功載入 ${videos.length} 個影片</div>`;
+                    videos.forEach((video, index) => {
+                        videosContainer.innerHTML += `
+                            <div class="item">
+                                <strong>${video.title || '無標題'}</strong><br>
+                                影片ID: ${video.video_id || '無ID'}<br>
+                                狀態: ${video.published ? '已發布' : '未發布'}<br>
+                                描述: ${video.description || '無描述'}
+                            </div>
+                        `;
+                    });
+                    updateDebug(`YouTube 影片載入成功: ${videos.length} 項`);
+                } else {
+                    videosContainer.innerHTML = '<div class="error">無法載入 YouTube 影片數據</div>';
+                    updateDebug('YouTube 影片載入失敗');
+                }
+
+                // 測試 YouTube Shorts
+                updateDebug('載入 YouTube Shorts 數據...');
+                const shorts = await cmsLoader.loadMarkdownFiles('shorts');
+                const shortsContainer = document.getElementById('shorts-container');
+                
+                if (shorts && shorts.length > 0) {
+                    shortsContainer.innerHTML = `<div class="success">成功載入 ${shorts.length} 個短影片</div>`;
+                    shorts.forEach((short, index) => {
+                        shortsContainer.innerHTML += `
+                            <div class="item">
+                                <strong>${short.title || '無標題'}</strong><br>
+                                影片ID: ${short.video_id || '無ID'}<br>
+                                狀態: ${short.published ? '已發布' : '未發布'}
+                            </div>
+                        `;
+                    });
+                    updateDebug(`YouTube Shorts 載入成功: ${shorts.length} 項`);
+                } else {
+                    shortsContainer.innerHTML = '<div class="error">無法載入 YouTube Shorts 數據</div>';
+                    updateDebug('YouTube Shorts 載入失敗');
+                }
+
+                // 測試文章
+                updateDebug('載入文章數據...');
+                const articles = await cmsLoader.loadMarkdownFiles('articles');
+                const articlesContainer = document.getElementById('articles-container');
+                
+                if (articles && articles.length > 0) {
+                    articlesContainer.innerHTML = `<div class="success">成功載入 ${articles.length} 篇文章</div>`;
+                    articles.forEach((article, index) => {
+                        articlesContainer.innerHTML += `
+                            <div class="item">
+                                <strong>${article.title || '無標題'}</strong><br>
+                                作者: ${article.author || '未知'}<br>
+                                狀態: ${article.published ? '已發布' : '未發布'}<br>
+                                摘要: ${(article.excerpt || '無摘要').substring(0, 100)}...
+                            </div>
+                        `;
+                    });
+                    updateDebug(`文章載入成功: ${articles.length} 項`);
+                } else {
+                    articlesContainer.innerHTML = '<div class="error">無法載入文章數據</div>';
+                    updateDebug('文章載入失敗');
+                }
+
+                updateDebug('CMS 數據測試完成');
+
+            } catch (error) {
+                updateDebug(`測試過程中發生錯誤: ${error.message}`);
+                console.error('CMS 測試錯誤:', error);
+            }
+        }
+
+        // 頁面載入完成後開始測試
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDebug('頁面載入完成，開始 CMS 測試');
+            testCMSData();
+        });
+    </script>
+</body>
+</html>

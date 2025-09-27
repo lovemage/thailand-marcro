@@ -5,11 +5,11 @@ backend:
   # name: test-repo
   # accept_roles: #optional - accepts all users if left out
 
-media_folder: "images/uploads"
+media_folder: "marco-academic/images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://marco-academic.netlify.app
-display_url: https://marco-academic.netlify.app
+site_url: https://thailand-marcro.netlify.app
+display_url: https://thailand-marcro.netlify.app
 
 # 中文化界面設置
 locale: 'zh_Hant'
@@ -22,7 +22,7 @@ editor:
 # publish_mode: editorial_workflow
 
 # 顯示設置
-logo_url: https://marco-academic.netlify.app/images/logo-2.png
+logo_url: https://thailand-marcro.netlify.app/images/logo-2.png
 show_preview_links: true
 
 # 搜索設置

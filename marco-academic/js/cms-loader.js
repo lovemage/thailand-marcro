@@ -184,10 +184,9 @@ class CMSLoader {
      * 從 GitHub API 載入文件內容 (Marco Academic 版本)
      */
     async loadFromGitHub(folder, fileName) {
-        // 注意：這裡需要調整為新的 GitHub repo 路徑
-        // 目前暫時使用原路徑，後續需要建立新的 repo 或調整路徑
-        const githubAPI = 'https://api.github.com/repos/lovemage/marco-academic/contents';
-        const url = `${githubAPI}/_data/${folder}/${fileName}`;
+        // 使用正確的 GitHub repo 路徑 - thailand-marcro 倉庫，marco-academic 目錄
+        const githubAPI = 'https://api.github.com/repos/lovemage/thailand-marcro/contents';
+        const url = `${githubAPI}/marco-academic/_data/${folder}/${fileName}`;
 
         try {
             const response = await fetch(url);
@@ -329,9 +328,9 @@ class CMSLoader {
      * 從 GitHub API 獲取文件列表 (Marco Academic 版本)
      */
     async getFileListFromGitHub(folder) {
-        // 注意：這裡需要調整為新的 GitHub repo 路徑
-        const githubAPI = 'https://api.github.com/repos/lovemage/marco-academic/contents';
-        const url = `${githubAPI}/_data/${folder}`;
+        // 使用正確的 GitHub repo 路徑 - thailand-marcro 倉庫，marco-academic 目錄
+        const githubAPI = 'https://api.github.com/repos/lovemage/thailand-marcro/contents';
+        const url = `${githubAPI}/marco-academic/_data/${folder}`;
 
         try {
             const response = await fetch(url);
