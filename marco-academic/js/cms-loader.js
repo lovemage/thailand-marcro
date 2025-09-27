@@ -7,6 +7,8 @@ class CMSLoader {
         this.dataCache = {};
         this.cacheTimestamp = {};
         this.cacheMaxAge = 5 * 60 * 1000; // 5分鐘緩存
+        // 僅在本機開發或 URL 加上 ?github=1 時使用 GitHub API，避免正式站 403 / MIME 警告
+        this.enableGithubApi = /localhost|127\.0\.0\.1/.test(window.location.hostname) || (new URLSearchParams(window.location.search)).get('github') === '1';
     }
 
     /**
@@ -350,11 +352,13 @@ class CMSLoader {
      * 獲取文件列表
      */
     async getFileList(folder) {
-        // 首先嘗試從 GitHub API 獲取動態列表
-        const githubFiles = await this.getFileListFromGitHub(folder);
-        if (githubFiles.length > 0) {
-            console.log(`從 GitHub 獲取到 ${githubFiles.length} 個 ${folder} 文件`);
-            return githubFiles;
+        // 在本機開發或加上 ?github=1 時，才嘗試從 GitHub API 取得動態列表，以避免正式站出現 403/Rate Limit 錯誤
+        if (this.enableGithubApi) {
+            const githubFiles = await this.getFileListFromGitHub(folder);
+            if (githubFiles.length > 0) {
+                console.log(`從 GitHub 獲取到 ${githubFiles.length} 個 ${folder} 文件`);
+                return githubFiles;
+            }
         }
 
         // 回退到硬編碼列表
@@ -722,7 +726,7 @@ async function initializeCMS() {
             propertiesContainer.innerHTML = generatePropertyHTML(properties);
             console.log(`成功載入 ${properties.length} 個房產項目到頁面`);
         } else {
-            console.error('找不到房產容器！選擇器: .portfolios-section .portfolio_container');
+            console.debug('略過房產渲染（當前頁面無容器）: .portfolios-section .portfolio_container');
         }
 
         // 載入文章數據
