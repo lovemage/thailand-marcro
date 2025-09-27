@@ -205,16 +205,29 @@
 
 	<script>
 		// 自定義文章顯示函數
+		function mdToHtml(markdown) {
+			if (!markdown) return '';
+			let html = markdown;
+			html = html.replace(/\r\n/g, '\n');
+			html = html.replace(/\n\n/g, '</p><p>');
+			html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+			html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+			html = html.replace(/^### (.*$)/gim, '<h5>$1</h5>');
+			html = html.replace(/^## (.*$)/gim, '<h4>$1</h4>');
+			html = html.replace(/^# (.*$)/gim, '<h3>$1</h3>');
+			return '<p>' + html + '</p>';
+		}
 		function generateArticlesHTML(articles) {
-			return articles.map(article => {
+			return articles.map((article, idx) => {
 				const date = new Date(article.date).toLocaleDateString('zh-TW');
 				const processedImage = article.image ? article.image.replace(/^\//, '') : 'images/blog/default.jpg';
-				
+				const moreHtml = mdToHtml(article.content || article.description || article.excerpt || '');
+				const moreId = `article-more-${idx}`;
 				return `
 					<div class="col-lg-4 col-md-6 mb-5">
 						<div class="entry">
 							<div class="entry-image">
-								<a href="news-detail.html?article=${encodeURIComponent(article.title)}">
+								<a href="#" class="toggle-more" data-target="#${moreId}">
 									<img src="${processedImage}" alt="${article.title}">
 								</a>
 							</div>
@@ -226,11 +239,12 @@
 									</ul>
 								</div>
 								<div class="entry-title">
-									<h2><a href="news-detail.html?article=${encodeURIComponent(article.title)}">${article.title}</a></h2>
+									<h2>${article.title}</h2>
 								</div>
 								<div class="entry-content">
 									<p>${article.excerpt || article.description || ''}</p>
-									<a href="news-detail.html?article=${encodeURIComponent(article.title)}" class="more-link">閱讀更多</a>
+									<a href="#" class="more-link toggle-more" data-target="#${moreId}">閱讀更多</a>
+									<div id="${moreId}" class="mt-3" style="display:none;">${moreHtml}</div>
 								</div>
 							</div>
 						</div>
@@ -253,6 +267,15 @@
 					if (articles && articles.length > 0) {
 						loadingEl.remove();
 						container.html(generateArticlesHTML(articles));
+						// 綁定展開/收合事件
+						container.on('click', '.toggle-more', function(e) {
+							e.preventDefault();
+							const target = $(this).data('target');
+							const $target = $(target);
+							$target.slideToggle(200);
+							const $link = container.find(`a.more-link[data-target="${target}"]`);
+							$link.text($target.is(':visible') ? '收合內容' : '閱讀更多');
+						});
 					} else {
 						loadingEl.html('<div class="text-danger">載入文章失敗</div>');
 					}
