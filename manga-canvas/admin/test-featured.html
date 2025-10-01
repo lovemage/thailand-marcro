@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精選作品輪播測試</title>
+
+    <!-- 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+
+    <style>
+        body, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* ================= 精選作品輪播樣式 ================= */
+        .featured-carousel-preview {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            background: #222327;
+        }
+
+        .featured-carousel-hero {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .featured-carousel-slider {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+
+        .featured-carousel-slider .swiper-slide {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .featured-carousel-slider .swiper-slide.swiper-slide-active {
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+        }
+
+        .featured-carousel-slider .swiper-slide:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #222327;
+            opacity: 0.7;
+        }
+
+        .featured-carousel-slider .swiper-slide.swiper-slide-active:after {
+            opacity: 0.4;
+        }
+
+        .featured-carousel-slider .swiper-slide .inner {
+            width: 100%;
+            display: block;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transition: 0.25s ease-in-out;
+            padding: 2rem;
+        }
+
+        .featured-carousel-slider .swiper-slide.swiper-slide-active .inner {
+            opacity: 1;
+        }
+
+        .featured-carousel-slider .swiper-slide .inner h2 {
+            width: 100%;
+            float: left;
+            font-size: 4vw;
+            line-height: 5vw;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+            margin-top: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .featured-carousel-slider .swiper-slide .inner p {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .featured-carousel-slider .swiper-slide .inner a {
+            font-size: 19px;
+            color: #fff;
+            font-family: "Fjalla One", sans-serif;
+            padding-bottom: 5px;
+            position: relative;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 4px;
+            text-decoration: none;
+            transition: 0.25s ease-in-out;
+        }
+
+        .featured-carousel-slider .swiper-slide .inner a:hover {
+            text-decoration: none;
+            color: #75dab4;
+        }
+
+        .featured-slide-progress {
+            width: 220px;
+            display: flex;
+            flex-wrap: wrap;
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            margin-left: -110px;
+            z-index: 3;
+            text-align: center;
+        }
+
+        .featured-slide-progress span {
+            display: inline-block;
+            color: #fff;
+            font-family: "Fjalla One", sans-serif;
+            font-size: 14px;
+        }
+
+        .featured-slide-progress .swiper-pagination {
+            width: 160px;
+            height: 2px;
+            margin: auto 10px;
+            display: inline-block;
+            position: static;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .featured-slide-progress .swiper-pagination .swiper-pagination-progressbar-fill {
+            background: #fff;
+            width: 33%;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .featured-carousel-hero .swiper-button-prev,
+        .featured-carousel-hero .swiper-button-next {
+            height: auto;
+            position: absolute;
+            top: auto;
+            bottom: 30px;
+            font-family: "Fjalla One", sans-serif;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .featured-carousel-hero .swiper-button-prev {
+            left: auto;
+            right: 120px;
+        }
+
+        .featured-carousel-hero .swiper-button-next {
+            left: auto;
+            right: 40px;
+        }
+
+        .featured-carousel-hero .swiper-button-prev:after,
+        .featured-carousel-hero .swiper-button-next:after {
+            display: none;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 991px) {
+            .featured-carousel-slider .swiper-slide .inner h2 {
+                font-size: 7vw;
+                line-height: 7vw;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .featured-carousel-slider .swiper-slide .inner h2 {
+                font-size: 12vw;
+                line-height: 12vw;
+                margin-bottom: 15px;
+            }
+            .featured-carousel-hero .swiper-button-prev {
+                left: 40px;
+            }
+            .featured-carousel-hero .swiper-button-next {
+                right: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 輪播容器 -->
+    <div class="featured-carousel-preview">
+        <div class="featured-carousel-hero">
+            <div class="featured-carousel-slider swiper-container-horizontal">
+                <div class="swiper-wrapper" id="featuredPreviewWrapper">
+                    <div class="swiper-slide swiper-slide-active" style="background-image: url(https://i.ibb.co/nNggbhf5/joshua-earle-njz0-Tt-Rszo-unsplash.jpg);">
+                        <div class="inner">
+                            <h2>DISCOVER</h2>
+                            <p>探索新世界的無限可能</p>
+                            <a href="#">DISCOVER CASE</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url(https://i.ibb.co/jPhPjG6W/roxy-aln-A7-Fq-Nh-YQm-TA-unsplash.jpg);">
+                        <div class="inner">
+                            <h2>EXCLUSION</h2>
+                            <p>獨特視角的藝術創作</p>
+                            <a href="#">DISCOVER CASE</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url(https://i.ibb.co/dJgDPQDB/nils-limp-3-S7i7-T-Wtdg-unsplash.jpg);">
+                        <div class="inner">
+                            <h2>EDITIONAL</h2>
+                            <p>編輯精選的傑作合集</p>
+                            <a href="#">DISCOVER CASE</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 輪播控制項 -->
+                <div class="featured-slide-progress">
+                    <span id="featuredCurrentSlide">01</span>
+                    <div class="swiper-pagination swiper-pagination-progressbar">
+                        <span class="swiper-pagination-progressbar-fill"></span>
+                    </div>
+                    <span id="featuredTotalSlides">03</span>
+                </div>
+                <div class="swiper-button-prev" onclick="prevSlide()">PREV</div>
+                <div class="swiper-button-next" onclick="nextSlide()">NEXT</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const totalSlides = 3;
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.swiper-slide');
+
+            // 移除所有active狀態
+            slides.forEach(slide => slide.classList.remove('swiper-slide-active'));
+
+            // 添加新的active狀態
+            if (slides[index]) {
+                slides[index].classList.add('swiper-slide-active');
+            }
+
+            // 更新計數器
+            document.getElementById('featuredCurrentSlide').textContent = String(index + 1).padStart(2, '0');
+
+            // 更新進度條
+            const progressFill = document.querySelector('.swiper-pagination-progressbar-fill');
+            if (progressFill) {
+                const progress = (index + 1) / totalSlides * 100;
+                progressFill.style.width = `${progress}%`;
+            }
+
+            currentIndex = index;
+        }
+
+        function nextSlide() {
+            const newIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : 0;
+            goToSlide(newIndex);
+        }
+
+        function prevSlide() {
+            const newIndex = currentIndex > 0 ? currentIndex - 1 : totalSlides - 1;
+            goToSlide(newIndex);
+        }
+
+        // 鍵盤控制
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+            }
+        });
+
+        // 自動播放（可選）
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>

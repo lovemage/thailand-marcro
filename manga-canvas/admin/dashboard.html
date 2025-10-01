@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TJI Studio - 管理控制台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            color: #000000;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: #000000;
+            border-right: 2px solid #000000;
+        }
+
+        .sidebar .nav-link {
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            margin: 0.2rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            color: #000000;
+            background: #ffffff;
+            border: 2px solid #000000;
+        }
+
+        .main-content {
+            min-height: 100vh;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #000000;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: 2px solid #000000;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 2rem;
+            background: #ffffff;
+        }
+
+        .card-header {
+            background: #000000;
+            color: #ffffff;
+            border-radius: 0;
+            padding: 1.5rem;
+            border-bottom: 2px solid #000000;
+        }
+
+        .stats-card {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            border-radius: 0;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-card .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #000000;
+        }
+
+        .stats-card .stats-label {
+            color: #666666;
+            font-weight: 500;
+        }
+
+        .btn-upload {
+            background: #000000;
+            border: 2px solid #000000;
+            border-radius: 0;
+            padding: 0.8rem 2rem;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-upload:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .btn-primary {
+            background: #000000;
+            border: 2px solid #000000;
+            border-radius: 0;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .btn-outline-primary {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 0;
+            color: #000000;
+        }
+
+        .btn-outline-primary:hover {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #000000;
+        }
+
+        .btn-secondary {
+            background: #666666;
+            border: 2px solid #666666;
+            border-radius: 0;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #666666;
+            border: 2px solid #666666;
+        }
+
+        .btn-light {
+            background: #ffffff;
+            border: 2px solid #666666;
+            border-radius: 0;
+            color: #666666;
+        }
+
+        .btn-light:hover {
+            background: #666666;
+            color: #ffffff;
+            border: 2px solid #666666;
+        }
+
+        .manga-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .manga-item {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .manga-item:hover {
+            box-shadow: 4px 4px 0px #000000;
+            transform: translate(-2px, -2px);
+        }
+
+        .manga-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #000000;
+        }
+
+        .manga-item .content {
+            padding: 1rem;
+        }
+
+        .manga-item .title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: #000000;
+        }
+
+        .manga-item .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-sm-custom {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 0;
+            border: 2px solid;
+        }
+
+        .btn-danger {
+            background: #ffffff;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            border-radius: 0;
+        }
+
+        .btn-danger:hover {
+            background: #dc3545;
+            color: #ffffff;
+            border: 2px solid #dc3545;
+        }
+
+        .upload-area {
+            border: 2px dashed #666666;
+            border-radius: 0;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #ffffff;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: #000000;
+            background: #f8f9fa;
+        }
+
+        .upload-area.dragover {
+            border-color: #000000;
+            background: #f8f9fa;
+        }
+
+        .form-control {
+            border: 2px solid #666666;
+            border-radius: 0;
+            color: #000000;
+            background: #ffffff;
+        }
+
+        /* 標籤系統樣式 */
+        .tag-item {
+            display: inline-block;
+            background: #000000;
+            color: #ffffff;
+            padding: 0.3rem 0.8rem;
+            margin: 0.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .tag-remove {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            font-size: 1rem;
+        }
+
+        .tag-remove:hover {
+            color: #ff6b6b;
+        }
+
+        /* 評價系統樣式 */
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .rating-value {
+            font-weight: 600;
+            color: #666;
+        }
+
+        /* 漫畫卡片增強樣式 */
+        .manga-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            align-items: center;
+        }
+
+        .age-rating {
+            background: #6c757d;
+            color: white;
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .manga-status {
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .status-連載中 { background: #28a745; color: white; }
+        .status-完結 { background: #17a2b8; color: white; }
+        .status-暫停 { background: #ffc107; color: black; }
+
+        .manga-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .manga-tags .tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.1rem 0.3rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+        }
+
+        .form-control:focus {
+            border-color: #000000;
+            box-shadow: none;
+            background: #ffffff;
+        }
+
+        .form-label {
+            color: #000000;
+            font-weight: 600;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .preview-item {
+            position: relative;
+            border: 2px solid #000000;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #dc3545;
+            border: 2px solid #dc3545;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .text-muted {
+            color: #666666 !important;
+        }
+
+        h4, h5 {
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .sidebar .text-white {
+            color: #ffffff !important;
+        }
+
+        .sidebar .text-white-50 {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            border-radius: 0;
+        }
+
+        .btn-outline-light:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        /* 漫畫管理樣式 */
+        .manga-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .manga-card {
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 15px;
+            background: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .manga-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .manga-cover {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .manga-cover img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .manga-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-連載中 {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-完結 {
+            background: #007bff;
+            color: white;
+        }
+
+        .status-暫停 {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .manga-info {
+            margin-bottom: 15px;
+        }
+
+        .manga-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .manga-type {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .manga-description {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .manga-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.1em;
+        }
+
+        .rating-value {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .manga-tags {
+            margin-bottom: 10px;
+        }
+
+        .manga-tags .tag {
+            display: inline-block;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 3px 8px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 3px;
+        }
+
+        .manga-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .age-rating {
+            background: #6c757d;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .category {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .manga-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .manga-actions .btn {
+            flex: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        /* 標籤系統樣式 */
+        .tag-item {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-right: 8px;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 0;
+        }
+
+        .tag-remove:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 側邊欄 -->
+            <div class="col-md-3 col-lg-2 px-0 sidebar">
+                <div class="p-4">
+                    <div class="text-center mb-4">
+                        <img src="../images/logo-tji.png" alt="TJI Studio" style="height: 40px;" onerror="this.style.display='none'">
+                        <h5 class="text-white mt-2 mb-0">TJI Studio</h5>
+                        <small class="text-white-50">管理系統</small>
+                    </div>
+                </div>
+
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#" data-tab="dashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i>控制台
+                    </a>
+                    <a class="nav-link" href="#" data-tab="manga">
+                        <i class="fas fa-book me-2"></i>漫畫管理
+                    </a>
+                    <a class="nav-link" href="#" data-tab="upload">
+                        <i class="fas fa-cloud-upload-alt me-2"></i>上傳作品
+                    </a>
+                    <a class="nav-link" href="#" data-tab="author">
+                        <i class="fas fa-user-edit me-2"></i>關於作者
+                    </a>
+                    <a class="nav-link" href="#" data-tab="homepage">
+                        <i class="fas fa-home me-2"></i>首頁設定
+                    </a>
+                    <a class="nav-link" href="#" data-tab="ads">
+                        <i class="fas fa-bullhorn me-2"></i>廣告橫幅
+                    </a>
+                    <a class="nav-link" href="#" data-tab="images">
+                        <i class="fas fa-images me-2"></i>圖片管理
+                    </a>
+                    <a class="nav-link" href="#" data-tab="settings">
+                        <i class="fas fa-cog me-2"></i>系統設定
+                    </a>
+                </nav>
+
+                <div class="mt-auto p-4">
+                    <button class="btn btn-outline-light btn-sm w-100" onclick="logout()">
+                        <i class="fas fa-sign-out-alt me-2"></i>登出
+                    </button>
+                </div>
+            </div>
+
+            <!-- 主內容區 -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- 頁首 -->
+                <div class="header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-0" id="pageTitle">控制台</h4>
+                        <small class="text-muted">歡迎回來，<span id="userName">管理員</span></small>
+                    </div>
+                    <div>
+                        <span class="text-muted me-3">
+                            <i class="fas fa-clock me-1"></i>
+                            <span id="currentTime"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 控制台頁面 -->
+                <div class="tab-content active" id="dashboard">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="totalManga">0</div>
+                                    <div class="stats-label">總漫畫數量</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="totalImages">0</div>
+                                    <div class="stats-label">總圖片數量</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="storageUsed">0</div>
+                                    <div class="stats-label">儲存使用 (MB)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="lastUpdate">今天</div>
+                                    <div class="stats-label">最後更新</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>快速操作</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <button class="btn btn-upload w-100" onclick="switchTab('upload')">
+                                            <i class="fas fa-cloud-upload-alt me-2"></i>上傳新漫畫
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <button class="btn btn-outline-primary w-100" onclick="switchTab('manga')">
+                                            <i class="fas fa-book me-2"></i>管理漫畫
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 漫畫管理頁面 -->
+                <div class="tab-content" id="manga">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-book me-2"></i>漫畫作品管理</h5>
+                                <div>
+                                    <button class="btn btn-primary btn-sm me-2" id="addMangaBtn" onclick="mangaManager.showMangaForm()">
+                                        <i class="fas fa-plus me-1"></i>新增漫畫
+                                    </button>
+                                    <button class="btn btn-light btn-sm" onclick="mangaManager.loadMangaList()">
+                                        <i class="fas fa-sync me-1"></i>重新載入
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="mangaListContainer" class="manga-grid">
+                                    <!-- 動態載入漫畫列表 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上傳頁面 -->
+                <div class="tab-content" id="upload">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-cloud-upload-alt me-2"></i>上傳漫畫作品</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="uploadForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="mangaTitle" class="form-label">作品標題</label>
+                                                <input type="text" class="form-control" id="mangaTitle" name="title" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="mangaDescription" class="form-label">作品描述</label>
+                                                <textarea class="form-control" id="mangaDescription" name="description" rows="4"></textarea>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="mangaCategory" class="form-label">分類</label>
+                                                        <select class="form-control" id="mangaCategory" name="category">
+                                                            <option value="general">一般</option>
+                                                            <option value="action">動作</option>
+                                                            <option value="romance">愛情</option>
+                                                            <option value="comedy">喜劇</option>
+                                                            <option value="fantasy">奇幻</option>
+                                                            <option value="horror">恐怖</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="mangaStatus" class="form-label">狀態</label>
+                                                        <select class="form-control" id="mangaStatus" name="status">
+                                                            <option value="連載中">連載中</option>
+                                                            <option value="完結">完結</option>
+                                                            <option value="暫停">暫停</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 新增的欄位 -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="mangaType" class="form-label">類型</label>
+                                                        <input type="text" class="form-control" id="mangaType" name="type"
+                                                               placeholder="例如：冒險、校園、科幻等">
+                                                        <small class="form-text text-muted">請輸入漫畫類型，可自由定義</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="mangaAgeRating" class="form-label">年齡分級</label>
+                                                        <select class="form-control" id="mangaAgeRating" name="ageRating">
+                                                            <option value="全年齡">全年齡</option>
+                                                            <option value="12+">12歲以上</option>
+                                                            <option value="15+">15歲以上</option>
+                                                            <option value="18+">18歲以上</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 評價系統 -->
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="ratingEnabled" name="ratingEnabled">
+                                                    <label class="form-check-label" for="ratingEnabled">
+                                                        啟用評價系統
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div id="ratingSettings" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ratingStars" class="form-label">星數上限</label>
+                                                            <select class="form-control" id="ratingStars" name="ratingStars">
+                                                                <option value="3">3星制</option>
+                                                                <option value="4">4星制</option>
+                                                                <option value="5" selected>5星制</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ratingValue" class="form-label">初始評分</label>
+                                                            <input type="number" class="form-control" id="ratingValue"
+                                                                   name="ratingValue" min="0" max="5" step="0.1" value="0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 標籤系統 -->
+                                            <div class="mb-3">
+                                                <label for="mangaTags" class="form-label">標籤</label>
+                                                <input type="text" class="form-control" id="mangaTags"
+                                                       placeholder="輸入標籤後按 Enter 或逗號添加">
+                                                <small class="form-text text-muted">按 Enter 或輸入逗號來添加標籤</small>
+                                                <div id="tagsContainer" class="mt-2">
+                                                    <!-- 動態添加的標籤將顯示在這裡 -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">上傳封面圖片</label>
+                                                <div class="upload-area" onclick="document.getElementById('coverUpload').click()">
+                                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                                    <p class="text-muted mb-0">點擊選擇封面圖片</p>
+                                                    <small class="text-muted">或拖拽文件到此處</small>
+                                                </div>
+                                                <input type="file" id="coverUpload" accept="image/*" style="display: none;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">上傳漫畫頁面 (可選擇多個)</label>
+                                                <div class="upload-area" onclick="document.getElementById('pagesUpload').click()">
+                                                    <i class="fas fa-images fa-3x text-muted mb-3"></i>
+                                                    <p class="text-muted mb-0">選擇漫畫頁面文件</p>
+                                                    <small class="text-muted">支援多選，按頁面順序選擇</small>
+                                                </div>
+                                                <input type="file" id="pagesUpload" accept="image/*" multiple style="display: none;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="uploadPreview" class="preview-grid"></div>
+
+                                    <div class="text-end mt-4">
+                                        <button type="button" class="btn btn-secondary me-2" onclick="resetUploadForm()">
+                                            <i class="fas fa-times me-1"></i>重置
+                                        </button>
+                                        <button type="submit" class="btn btn-upload">
+                                            <i class="fas fa-upload me-1"></i>上傳作品
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 關於作者頁面 -->
+                <div class="tab-content" id="author">
+                    <div class="container-fluid">
+                        <!-- 作者資訊編輯 -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>作者基本資訊</h5>
+                                <button class="btn btn-light btn-sm" onclick="loadAuthorData()">
+                                    <i class="fas fa-sync me-1"></i>重新載入
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="text-center mb-4">
+                                            <img id="authorImage" src="/images/auther.png" alt="作者頭像"
+                                                 style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #000;">
+                                            <div class="mt-3">
+                                                <label for="authorImageUpload" class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-camera me-1"></i>更換頭像
+                                                </label>
+                                                <input type="file" id="authorImageUpload" accept="image/*" style="display: none;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <form id="authorProfileForm">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="mb-3">
+                                                        <label for="authorName" class="form-label">姓名</label>
+                                                        <input type="text" class="form-control" id="authorName" name="name" value="Tji">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="authorAge" class="form-label">年齡</label>
+                                                        <input type="number" class="form-control" id="authorAge" name="age" value="23">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="authorTitle" class="form-label">職稱描述</label>
+                                                <input type="text" class="form-control" id="authorTitle" name="title" value="漫畫創作者，台灣">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="authorIntroduction" class="form-label">自我介紹</label>
+                                                <div id="introductionEditor">
+                                                    <div class="introduction-paragraph mb-2">
+                                                        <textarea class="form-control" rows="3" placeholder="請輸入段落內容..."></textarea>
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeIntroductionParagraph(this)">
+                                                            <i class="fas fa-trash"></i> 刪除段落
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addIntroductionParagraph()">
+                                                    <i class="fas fa-plus me-1"></i>新增段落
+                                                </button>
+                                            </div>
+
+                                            <div class="text-end">
+                                                <button type="button" class="btn btn-secondary me-2" onclick="resetAuthorForm()">
+                                                    <i class="fas fa-undo me-1"></i>重置
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-1"></i>儲存資訊
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 作者作品管理 -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-palette me-2"></i>作品集管理</h5>
+                                <button class="btn btn-primary btn-sm" onclick="showAddWorkModal()">
+                                    <i class="fas fa-plus me-1"></i>新增作品
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="authorWorksList" class="row">
+                                    <!-- 動態載入作品列表 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 首頁設定頁面 -->
+                <div class="tab-content" id="homepage">
+                    <div class="container-fluid">
+                        <!-- 輪播設定 -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-play-circle me-2"></i>輪播設定</h5>
+                                <button class="btn btn-light btn-sm" onclick="loadHomepageData()">
+                                    <i class="fas fa-sync me-1"></i>重新載入
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <form id="carouselSettingsForm">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="carouselEnabled" checked>
+                                                <label class="form-check-label" for="carouselEnabled">
+                                                    <strong>啟用輪播</strong>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="carouselAutoplay" checked>
+                                                <label class="form-check-label" for="carouselAutoplay">
+                                                    <strong>自動播放</strong>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="carouselSpeed" class="form-label">播放速度</label>
+                                                <select class="form-control" id="carouselSpeed" name="speed">
+                                                    <option value="1">1 秒</option>
+                                                    <option value="2">2 秒</option>
+                                                    <option value="3" selected>3 秒</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i>儲存設定
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 輪播圖片管理 -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-images me-2"></i>輪播圖片管理</h5>
+                                <div>
+                                    <small class="text-muted me-3">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        建議尺寸 990*330，最多5張圖片
+                                    </small>
+                                    <button class="btn btn-primary btn-sm" onclick="showAddHomepageImageModal()">
+                                        <i class="fas fa-plus me-1"></i>新增圖片
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="homepageImagesList" class="row">
+                                    <!-- 動態載入圖片列表 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 廣告橫幅 -->
+                <div class="tab-content" id="ads">
+                    <div class="container-fluid">
+                        <!-- 頁面標題設定 -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-heading me-2"></i>頁面標題設定</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="comicsHeroTitleForm" class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="comicsHeroTitle" class="form-label">主標題</label>
+                                        <input type="text" class="form-control" id="comicsHeroTitle" name="title" placeholder="輸入主標題">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="comicsHeroDescription" class="form-label">描述文字</label>
+                                        <textarea class="form-control" id="comicsHeroDescription" name="description" rows="3" placeholder="輸入描述文字"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i>儲存標題設定
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Hero輪播設定 -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-play-circle me-2"></i>廣告橫幅設定</h5>
+                                <button class="btn btn-light btn-sm" onclick="loadAdsData()">
+                                    <i class="fas fa-sync me-1"></i>重新載入
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <form id="adsHeroSettingsForm" class="row align-items-end">
+                                    <div class="col-md-3">
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="adsHeroEnabled">
+                                            <label class="form-check-label" for="adsHeroEnabled">
+                                                啟用廣告橫幅
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="adsAutoplay">
+                                            <label class="form-check-label" for="adsAutoplay">
+                                                自動播放
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="adsSpeed" class="form-label">輪播速度（秒）</label>
+                                        <select id="adsSpeed" class="form-select">
+                                            <option value="3">3秒</option>
+                                            <option value="4">4秒</option>
+                                            <option value="5">5秒</option>
+                                            <option value="6">6秒</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-upload w-100">
+                                            <i class="fas fa-save me-1"></i>儲存設定
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 廣告橫幅內容管理 -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-images me-2"></i>廣告橫幅內容</h5>
+                                <div>
+                                    <small class="text-muted me-3">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        建議尺寸 990*330，最多5張，圖片圓角 5px
+                                    </small>
+                                    <button class="btn btn-upload btn-sm" onclick="showAddAdsSlideModal()">
+                                        <i class="fas fa-plus me-1"></i>新增廣告
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" id="adsSlidesList">
+                                    <!-- 動態載入廣告橫幅內容 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 其他頁面暫時隱藏 -->
+                <div class="tab-content" id="images">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-images me-2"></i>圖片管理</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">圖片管理功能開發中...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="settings">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-cog me-2"></i>系統設定</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">系統設定功能開發中...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品編輯模態視窗 -->
+    <div class="modal fade" id="workModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border: 2px solid #000; border-radius: 0;">
+                <div class="modal-header" style="background: #000; color: #fff; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title" id="workModalTitle">
+                        <i class="fas fa-palette me-2"></i>編輯作品
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="workForm">
+                        <input type="hidden" id="workId" name="id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="workTitle" class="form-label">作品標題</label>
+                                    <input type="text" class="form-control" id="workTitle" name="title" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="workDescription" class="form-label">作品描述</label>
+                                    <textarea class="form-control" id="workDescription" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="workLink" class="form-label">連結網址</label>
+                                    <input type="text" class="form-control" id="workLink" name="link" placeholder="/article.html">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">作品封面</label>
+                                    <div class="text-center mb-3">
+                                        <img id="workImagePreview" src="/images/default-cover.jpg" alt="作品封面"
+                                             style="width: 100%; max-height: 200px; object-fit: cover; border: 2px solid #000;">
+                                    </div>
+                                    <div class="text-center">
+                                        <label for="workImageUpload" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-image me-1"></i>選擇圖片
+                                        </label>
+                                        <input type="file" id="workImageUpload" accept="image/*" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid #000;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>取消
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveWork()">
+                        <i class="fas fa-save me-1"></i>儲存作品
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero輪播編輯 Modal -->
+    <div class="modal fade" id="heroSlideModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border: 2px solid #000; border-radius: 0;">
+                <div class="modal-header" style="background: #000; color: #fff; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title" id="heroSlideModalTitle">
+                        <i class="fas fa-play-circle me-2"></i>新增Hero輪播
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="heroSlideForm">
+                        <input type="hidden" id="heroSlideId" name="id">
+
+                        <div class="row">
+                            <!-- 左側 - 基本資訊 -->
+                            <div class="col-md-6">
+                                <h6 class="border-bottom pb-2 mb-3">基本資訊</h6>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideTitle" class="form-label">作品標題</label>
+                                    <input type="text" class="form-control" id="heroSlideTitle" name="title" placeholder="例：《魔法少女的冒險日記》">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideSubtitle" class="form-label">副標題</label>
+                                    <input type="text" class="form-control" id="heroSlideSubtitle" name="subtitle" placeholder="例：2024新作">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideBadge" class="form-label">標籤</label>
+                                    <input type="text" class="form-control" id="heroSlideBadge" name="badge" placeholder="例：精選作品">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideDescription" class="form-label">作品描述</label>
+                                    <textarea class="form-control" id="heroSlideDescription" name="description" rows="4" placeholder="輸入作品的詳細描述..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideAuthor" class="form-label">作者</label>
+                                    <input type="text" class="form-control" id="heroSlideAuthor" name="author" placeholder="例：Tji">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="heroSlidePrice" class="form-label">價格</label>
+                                        <input type="text" class="form-control" id="heroSlidePrice" name="price" placeholder="例：NT$980">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="heroSlideOriginalPrice" class="form-label">原價（選填）</label>
+                                        <input type="text" class="form-control" id="heroSlideOriginalPrice" name="originalPrice" placeholder="例：NT$1,200">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideRating" class="form-label">評分（1-5星）</label>
+                                    <select class="form-control" id="heroSlideRating" name="rating">
+                                        <option value="5">5星</option>
+                                        <option value="4.5">4.5星</option>
+                                        <option value="4">4星</option>
+                                        <option value="3.5">3.5星</option>
+                                        <option value="3">3星</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideButtonText" class="form-label">按鈕文字</label>
+                                    <input type="text" class="form-control" id="heroSlideButtonText" name="buttonText" value="查看作品" placeholder="例：查看作品、Add to Cart">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="heroSlideButtonLink" class="form-label">按鈕連結</label>
+                                    <input type="text" class="form-control" id="heroSlideButtonLink" name="buttonLink" placeholder="例：#、/article.html">
+                                </div>
+                            </div>
+
+                            <!-- 右側 - 圖片設定 -->
+                            <div class="col-md-6">
+                                <h6 class="border-bottom pb-2 mb-3">圖片設定</h6>
+
+                                <!-- 主要圖片 -->
+                                <div class="mb-3">
+                                    <label for="heroSlideMainImage" class="form-label">主要圖片</label>
+                                    <input type="file" class="form-control" id="heroSlideMainImageUpload" accept="image/*">
+                                    <div class="preview-container mt-2">
+                                        <img id="heroSlideMainImagePreview" src="" alt="主要圖片預覽" style="max-width: 200px; max-height: 200px; border-radius: 8px;" class="d-none">
+                                    </div>
+                                </div>
+
+                                <!-- 側邊圖片群組 -->
+                                <div class="mb-3">
+                                    <label class="form-label">側邊圖片（最多4張）</label>
+                                    <input type="file" class="form-control mb-2" id="heroSlideSideImagesUpload" multiple accept="image/*">
+                                    <div class="side-images-preview" id="heroSlideSideImagesPreview">
+                                        <!-- 動態顯示側邊圖片預覽 -->
+                                    </div>
+                                </div>
+
+                                <!-- 卡片內容（選填） -->
+                                <div class="mb-3">
+                                    <label class="form-label">浮動卡片</label>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="heroSlideCardEnabled" name="cardEnabled">
+                                        <label class="form-check-label" for="heroSlideCardEnabled">
+                                            啟用浮動卡片
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control mb-2" id="heroSlideCardTitle" name="cardTitle" placeholder="卡片標題">
+                                    <textarea class="form-control" id="heroSlideCardContent" name="cardContent" rows="2" placeholder="卡片內容"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid #000;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-upload" onclick="saveHeroSlide()">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 廣告橫幅編輯 Modal -->
+    <div class="modal fade" id="adsSlideModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border: 2px solid #000; border-radius: 0;">
+                <div class="modal-header" style="background: #000; color: #fff; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title" id="adsSlideModalTitle">
+                        <i class="fas fa-bullhorn me-2"></i>新增廣告橫幅
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adsSlideForm">
+                        <input type="hidden" id="adsSlideId" name="id">
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <h6 class="border-bottom pb-2 mb-4">廣告橫幅設定</h6>
+
+                                <!-- 標題 -->
+                                <div class="mb-3">
+                                    <label for="adsSlideTitle" class="form-label">標題</label>
+                                    <input type="text" class="form-control" id="adsSlideTitle" name="title" placeholder="輸入橫幅標題">
+                                </div>
+
+                                <!-- 描述 -->
+                                <div class="mb-3">
+                                    <label for="adsSlideDescription" class="form-label">描述</label>
+                                    <textarea class="form-control" id="adsSlideDescription" name="description" rows="3" placeholder="輸入橫幅描述..."></textarea>
+                                </div>
+
+                                <!-- 圖片上傳 -->
+                                <div class="mb-3">
+                                    <label for="adsSlideMainImage" class="form-label">橫幅圖片 (990*330px)</label>
+                                    <input type="file" class="form-control" id="adsSlideMainImageUpload" accept="image/*">
+                                    <div class="form-text">建議圖片尺寸：990px × 330px</div>
+                                    <div class="preview-container mt-3">
+                                        <img id="adsSlideMainImagePreview" src="" alt="圖片預覽" style="max-width: 100%; height: auto; border-radius: 5px;" class="d-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid #000;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-upload" onclick="saveAdsSlide()">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 首頁圖片編輯模態視窗 -->
+    <div class="modal fade" id="homepageImageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border: 2px solid #000; border-radius: 0;">
+                <div class="modal-header" style="background: #000; color: #fff; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title" id="homepageImageModalTitle">
+                        <i class="fas fa-image me-2"></i>新增首頁圖片
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="homepageImageForm">
+                        <input type="hidden" id="homepageImageId" name="id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="homepageImageTitle" class="form-label">圖片標題</label>
+                                    <input type="text" class="form-control" id="homepageImageTitle" name="title" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="homepageImageDescription" class="form-label">圖片描述</label>
+                                    <textarea class="form-control" id="homepageImageDescription" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="homepageImageAlt" class="form-label">替代文字 (Alt)</label>
+                                    <input type="text" class="form-control" id="homepageImageAlt" name="alt" placeholder="圖片描述文字">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="homepageImageOrder" class="form-label">排序</label>
+                                    <input type="number" class="form-control" id="homepageImageOrder" name="order" min="1" value="1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">圖片上傳</label>
+                                    <div class="text-center mb-3">
+                                        <img id="homepageImagePreview" src="/images/default-cover.jpg" alt="圖片預覽"
+                                             style="width: 100%; max-height: 200px; object-fit: cover; border: 2px solid #000;">
+                                    </div>
+                                    <div class="text-center">
+                                        <label for="homepageImageUpload" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-upload me-1"></i>選擇圖片
+                                        </label>
+                                        <input type="file" id="homepageImageUpload" accept="image/*" style="display: none;">
+                                    </div>
+                                    <small class="text-muted d-block mt-2 text-center">
+                                        <i class="fas fa-info-circle me-1"></i>建議使用 990*330 尺寸的圖片
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid #000;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>取消
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveHomepageImage()">
+                        <i class="fas fa-save me-1"></i>儲存圖片
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 漫畫編輯 Modal -->
+    <div class="modal fade" id="mangaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border: 2px solid #000; border-radius: 0;">
+                <div class="modal-header" style="background: #000; color: #fff; border-bottom: 2px solid #000;">
+                    <h5 class="modal-title" id="mangaModalTitle">
+                        <i class="fas fa-book me-2"></i>編輯漫畫
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mangaForm">
+                        <input type="hidden" id="mangaFormId" name="id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="mangaFormTitle" class="form-label">作品標題</label>
+                                    <input type="text" class="form-control" id="mangaFormTitle" name="title" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="mangaFormDescription" class="form-label">作品描述</label>
+                                    <textarea class="form-control" id="mangaFormDescription" name="description" rows="4"></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="mangaFormCategory" class="form-label">分類</label>
+                                            <select class="form-control" id="mangaFormCategory" name="category">
+                                                <option value="general">一般</option>
+                                                <option value="action">動作</option>
+                                                <option value="romance">愛情</option>
+                                                <option value="comedy">喜劇</option>
+                                                <option value="fantasy">奇幻</option>
+                                                <option value="horror">恐怖</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="mangaFormStatus" class="form-label">狀態</label>
+                                            <select class="form-control" id="mangaFormStatus" name="status">
+                                                <option value="連載中">連載中</option>
+                                                <option value="完結">完結</option>
+                                                <option value="暫停">暫停</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="mangaFormType" class="form-label">類型</label>
+                                            <input type="text" class="form-control" id="mangaFormType" name="type"
+                                                   placeholder="例如：冒險、校園、科幻等">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="mangaFormAgeRating" class="form-label">年齡分級</label>
+                                            <select class="form-control" id="mangaFormAgeRating" name="ageRating">
+                                                <option value="全年齡">全年齡</option>
+                                                <option value="12+">12歲以上</option>
+                                                <option value="15+">15歲以上</option>
+                                                <option value="18+">18歲以上</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- 評價系統 -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="mangaFormRatingEnabled" name="ratingEnabled">
+                                        <label class="form-check-label" for="mangaFormRatingEnabled">
+                                            啟用評價系統
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div id="mangaFormRatingSettings" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="mangaFormRatingStars" class="form-label">星數上限</label>
+                                                <select class="form-control" id="mangaFormRatingStars" name="ratingStars">
+                                                    <option value="3">3星制</option>
+                                                    <option value="4">4星制</option>
+                                                    <option value="5" selected>5星制</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="mangaFormRatingValue" class="form-label">初始評分</label>
+                                                <input type="number" class="form-control" id="mangaFormRatingValue"
+                                                       name="ratingValue" min="0" max="5" step="0.1" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 標籤系統 -->
+                                <div class="mb-3">
+                                    <label for="mangaFormTags" class="form-label">標籤</label>
+                                    <input type="text" class="form-control" id="mangaFormTags"
+                                           placeholder="輸入標籤後按 Enter 或逗號添加">
+                                    <small class="form-text text-muted">按 Enter 或輸入逗號來添加標籤</small>
+                                    <div id="mangaFormTagsContainer" class="mt-2">
+                                        <!-- 動態添加的標籤將顯示在這裡 -->
+                                    </div>
+                                </div>
+
+                                <!-- 封面圖片上傳 -->
+                                <div class="mb-3">
+                                    <label class="form-label">更新封面圖片 (可選)</label>
+                                    <div class="upload-area" onclick="document.getElementById('mangaFormCoverUpload').click()">
+                                        <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                        <p class="text-muted mb-0">點擊選擇新封面圖片</p>
+                                        <small class="text-muted">或拖拽文件到此處</small>
+                                    </div>
+                                    <input type="file" id="mangaFormCoverUpload" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 2px solid #000;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>取消
+                    </button>
+                    <button type="submit" class="btn btn-primary" form="mangaForm">
+                        <i class="fas fa-save me-1"></i>儲存變更
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 全域函數定義 (載入順序很重要) -->
+    <script src="assets/global-functions.js"></script>
+
+    <!-- 載入模組化管理系統 -->
+    <script src="assets/modules/auth-manager.js"></script>
+    <script src="assets/modules/file-manager.js"></script>
+    <script src="assets/modules/ui-manager.js"></script>
+    <script src="assets/modules/homepage-manager.js"></script>
+    <script src="assets/modules/author-manager.js"></script>
+    <script src="assets/modules/ads-manager.js"></script>
+    <script src="assets/modules/manga-manager.js"></script>
+    <script src="assets/admin-new.js"></script>
+
+    <!-- 評價開關功能 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ratingToggle = document.getElementById('ratingEnabled');
+            const ratingSettings = document.getElementById('ratingSettings');
+
+            if (ratingToggle && ratingSettings) {
+                ratingToggle.addEventListener('change', function() {
+                    ratingSettings.style.display = this.checked ? 'block' : 'none';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

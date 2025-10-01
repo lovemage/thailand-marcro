@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-TW">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="author" content="Tji Studio">
+	<meta name="description" content="Tji Studio - 專業漫畫創作工作室，提供原創漫畫、角色設計、插圖繪製等多元化創作服務。">
+
+	<!-- Font Imports -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+	<!-- Core Style -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- Font Icons -->
+	<link rel="stylesheet" href="css/font-icons.css">
+
+	<!-- Plugins/Components CSS -->
+	<link rel="stylesheet" href="css/swiper.css">
+	<link rel="stylesheet" href="css/components/bs-switches.css">
+
+	<!-- Niche Demos -->
+	<link rel="stylesheet" href="demos/articles/articles.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/custom.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		/* Hero 輪播樣式 */
+		.swiper-slide img {
+			border-radius: 5px;
+		}
+
+		/* Hero 輪播觸控支援 */
+		.swiper {
+			touch-action: pan-y;
+		}
+
+		/* Hero 輪播指示器樣式 */
+		.swiper-pagination-bullet {
+			background: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
+
+		.swiper-pagination-bullet-active {
+			background: #ff6b35;
+		}
+
+		/* 漸層背景樣式 */
+		.bg-gradient-dark {
+			background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+		}
+
+		/* 輪播高度設定 */
+		#slider {
+			max-width: 990px;
+			margin: 0 auto;
+			height: 400px; /* 設定輪播容器高度 */
+		}
+
+		#slider .swiper {
+			height: 100%;
+		}
+
+		#slider .swiper-wrapper {
+			height: 100%;
+		}
+
+		#slider .swiper-slide {
+			height: 100%;
+		}
+
+		/* ====================== Buy Me A Coffee =============================== */
+	@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+	.coffee-button {
+		position: fixed;
+		z-index: 9;
+		top: 20px;
+		right: 20px;
+		background-color: #FFC107;
+		color: #333;
+		padding: 8px 16px;
+		border-radius: 20px;
+		text-decoration: none;
+		font-family: "Dancing Script", cursive;
+		font-weight: 600;
+		font-size: 20px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		transition: background-color 0.3s;
+	}
+
+	.coffee-button:hover {
+		background-color: #FFD54F;
+	}
+
+	.coffee-icon {
+		font-size: 24px;
+		line-height: 1;
+	}
+
+
+	button {
+		--bg-default: #e3dff2;
+		--bg-hover: #6c5ce7;
+
+		--text-default: #a29bfe;
+		--text-hover: #f1f2f6;
+
+		--border-default: #a29bfe;
+		--border-hover: #6c5ce7;
+
+		--ease: cubic-bezier(0.23, 1, 0.320, 1);
+		--duration: 0.4s;
+
+		position: relative;
+		background: var(--bg-default);
+		border: 2px solid var(--border-default);
+		border-radius: 8px;
+		color: var(--text-default);
+		cursor: pointer;
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		outline: 0;
+		overflow: hidden;
+		padding: 0.75rem 1.25rem;
+		transition: color var(--duration) var(--ease);
+	}
+
+	button:before,
+	button:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transition: transform var(--duration) var(--ease);
+	}
+
+	button:before {
+		background: var(--bg-hover);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	button:after {
+		background: var(--bg-default);
+		transition-delay: calc(var(--duration) / 4);
+	}
+
+	button:hover {
+		color: var(--text-hover);
+	}
+
+	button:hover:before {
+		transform: translate3d(0, 0, 0);
+	}
+
+	button:hover:after {
+		transform: translate3d(0, -100%, 0);
+	}
+
+	button:hover span {
+		transform: translate3d(0, -100%, 0);
+	}
+
+	button span {
+		position: relative;
+		z-index: 1;
+		display: block;
+		transition: transform var(--duration) var(--ease);
+	}
+
+	button.following {
+		--bg-default: #fd79a8;
+		--bg-hover: #e84393;
+		--text-default: #fff;
+		--text-hover: #fff;
+		--border-default: #e84393;
+		--border-hover: #e84393;
+	}
+
+	/* ======== 精選作品卡片樣式 (基於 sample2.css.md) ======== */
+
+	/* 精選作品容器 */
+	.featured-works-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+		padding: 2rem 0;
+	}
+
+	/* 精選作品卡片 */
+	.featured-card {
+		--bg: #fff;
+		--title-color: #000;
+		--title-color-hover: #000;
+		--text-color: #666;
+		--button-color: #eee;
+		--button-color-hover: #ddd;
+
+		background: var(--bg);
+		border-radius: 2rem;
+		padding: 0.5rem;
+		width: 20rem;
+		height: 30rem;
+		margin: 1rem;
+		overflow: clip;
+		position: relative;
+		font-family: 'Lato', 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+		transition: transform 0.25s ease;
+	}
+
+	.featured-card::before {
+		content: "";
+		position: absolute;
+		width: calc(100% - 1rem);
+		height: 30%;
+		bottom: 0.5rem;
+		left: 0.5rem;
+		mask: linear-gradient(transparent, rgba(0,0,0,0.9) 80%);
+		backdrop-filter: blur(1rem);
+		border-radius: 0 0 1.5rem 1.5rem;
+		translate: 0 0;
+		transition: translate 0.25s;
+	}
+
+	.featured-card > img {
+		max-width: 100%;
+		aspect-ratio: 2 / 3;
+		object-fit: cover;
+		object-position: 50% 5%;
+		border-radius: 1.5rem;
+		display: block;
+		transition: aspect-ratio 0.25s, object-position 0.5s;
+	}
+
+	.featured-card > section {
+		margin: 1rem;
+		height: calc(33.3333% - 1rem);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.featured-card > section h2 {
+		margin: 0;
+		margin-block-end: 1rem;
+		font-size: 1.5rem;
+		opacity: 0;
+		translate: 0 -200%;
+		opacity: 1;
+		color: var(--title-color);
+		transition: color 0.5s, margin-block-end 0.25s, opacity 1s, translate 0.25s;
+	}
+
+	.featured-card > section p {
+		font-size: 0.95rem;
+		line-height: 1.3;
+		color: var(--text-color);
+		opacity: 0;
+		margin: 0;
+		translate: 0 100%;
+		transition: margin-block-end 0.25s, opacity 1s 0.2s, translate 0.25s 0.2s;
+	}
+
+	.featured-card > section > div {
+		flex: 1;
+		align-items: flex-end;
+		display: flex;
+		justify-content: space-between;
+		translate: 0 100%;
+		opacity: 0;
+		transition: translate 0.25s 0.2s, opacity 1s;
+	}
+
+	.featured-card > section > div .tag {
+		align-self: center;
+		color: var(--title-color-hover);
+		font-size: 0.9rem;
+	}
+
+	.featured-card > section > div button {
+		border: 1px solid transparent;
+		border-radius: 1.25rem 1.25rem 1.5rem 1.25rem;
+		font-size: 1rem;
+		padding: 1rem 1.5rem 1rem 2.75rem;
+		translate: 1rem;
+		background: var(--button-color);
+		transition: background 0.33s;
+		outline-offset: 2px;
+		position: relative;
+		color: var(--title-color-hover);
+		cursor: pointer;
+	}
+
+	.featured-card > section > div button::before,
+	.featured-card > section > div button::after {
+		content: "";
+		width: 0.85rem;
+		height: 0.1rem;
+		background: currentcolor;
+		position: absolute;
+		top: 50%;
+		left: 1.33rem;
+		border-radius: 1rem;
+	}
+
+	.featured-card > section > div button::after {
+		rotate: 90deg;
+		transition: rotate 0.15s;
+	}
+
+	.featured-card > section > div button.following::after {
+		rotate: 0deg;
+	}
+
+	.featured-card > section > div button:hover {
+		background: var(--button-color-hover);
+	}
+
+	.featured-card > section > div button:focus {
+		outline: 2px solid var(--text-color);
+	}
+
+	/* 懸停效果 */
+	.featured-card:hover,
+	.featured-card:focus-within {
+		transform: translateY(-8px);
+	}
+
+	.featured-card:hover::before,
+	.featured-card:focus-within::before {
+		translate: 0 100%;
+	}
+
+	.featured-card:hover > img,
+	.featured-card:focus-within > img {
+		aspect-ratio: 1 / 1;
+		object-position: 50% 10%;
+		transition: aspect-ratio 0.25s, object-position 0.25s;
+	}
+
+	.featured-card:hover > section h2,
+	.featured-card:hover > section p,
+	.featured-card:focus-within > section h2,
+	.featured-card:focus-within > section p {
+		translate: 0 0;
+		margin-block-end: 0.5rem;
+		opacity: 1;
+	}
+
+	.featured-card:hover > section h2,
+	.featured-card:focus-within > section h2 {
+		color: var(--title-color-hover);
+	}
+
+	.featured-card:hover > section > div,
+	.featured-card:focus-within > section > div {
+		translate: 0 0;
+		opacity: 1;
+		transition: translate 0.25s 0.25s, opacity 0.5s 0.25s;
+	}
+
+	/* 響應式設計 */
+	@media (max-width: 768px) {
+		.featured-works-container {
+			gap: 1rem;
+			padding: 1rem 0;
+		}
+
+		.featured-card {
+			width: 16rem;
+			height: 24rem;
+			margin: 0.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.featured-card {
+			width: 14rem;
+			height: 20rem;
+		}
+	}
+	</style>
+
+	<!-- Document Title
+	============================================= -->
+	<title>Tji Studio | 漫畫創作工作室</title>
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper">
+
+		<!-- Navbar Container -->
+		<div id="navbar-container"></div>
+
+		<!-- Slider
+		============================================= -->
+		<section id="slider" class="slider-element swiper_wrapper">
+			<div class="slider-inner">
+				<div class="swiper swiper-parent">
+					<div class="swiper-wrapper">
+						<!-- 動態載入的輪播內容將在這裡插入 -->
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hero Title Section
+		============================================= -->
+		<section id="hero-title" class="py-5 text-center bg-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-8">
+						<h1 class="display-4 fw-bold mb-4" id="heroTitle">MangaPlaza, Your One-Stop Manga Website</h1>
+						<p class="lead text-muted" id="heroDescription">Discover popular Japanese manga series with over 150,000 chapters to read on MangaPlaza! Sign up and read the 1st chapter of even more titles for FREE!</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap pb-0">
+
+				<div class="section section-features m-0" style="padding: 120px 0;">
+					<div class="container">
+						<div class="row justify-content-start justify-content-sm-center justify-content-md-start">
+							<div class="col-lg-4 col-md-6">
+								<div class="heading-block services-info pe-1">
+									<h2 class="fw-normal ls-0 text-transform-none font-primary">Tji Studio</h2>
+									<p class="lead">為愛好者提供私人作品，讓您盡情享受精彩的漫畫世界。</p>
+								</div>
+							</div>
+						</div>
+						<div class="row align-items-md-center mt-3">
+							<div class="col-md-6 px-lg-4">
+								<div class="card p-2 py-lg-5 px-xl-3 px-lg-2">
+									<div class="card-body rounded">
+										<div class="feature-box media-box">
+											<div class="fbox-icon position-relative mb-4" style="width: 70px;height: 70px">
+												<svg enable-background="new 0 0 485.5 485.5" viewBox="0 0 485.5 485.5" xmlns="https://www.w3.org/2000/svg"><path d="m422.1 126.2h-295.7c-27.4 0-49.8-22.3-49.8-49.8 0-27.4 22.3-49.8 49.8-49.8h295.8c7.4 0 13.3-6 13.3-13.3 0-7.4-6-13.3-13.3-13.3h-295.8c-42.1 0-76.4 34.3-76.4 76.4v332.7c0 42.1 34.3 76.4 76.4 76.4h295.8c7.4 0 13.3-6 13.3-13.3v-332.7c-.1-7.3-6-13.3-13.4-13.3zm-13.3 332.7h-282.4c-27.4 0-49.8-22.3-49.8-49.8v-274.7c13.4 11.5 30.8 18.5 49.8 18.5h282.4z"><path d="m130.6 64.3c-7.4 0-13.3 6-13.3 13.3s6 13.3 13.3 13.3h249.8c7.4 0 13.3-6 13.3-13.3s-6-13.3-13.3-13.3z"><path d="m177.4 400.7c1.5.5 3 .8 4.5.8 5.5 0 10.6-3.4 12.5-8.8l16.2-45.3h62.4c.5 0 1.1 0 1.6-.1l16.2 45.4c1.9 5.4 7.1 8.8 12.5 8.8 1.5 0 3-.3 4.5-.8 6.9-2.5 10.5-10.1 8-17l-60.6-169.9c-.1-.4-.3-.8-.5-1.2-.1-.2-.2-.4-.3-.6s-.2-.4-.3-.6-.3-.4-.4-.7c-.1-.1-.2-.3-.3-.4-.1-.2-.3-.4-.5-.6-.1-.1-.2-.3-.4-.4-.1-.2-.3-.3-.5-.5s-.3-.3-.5-.5c-.1-.1-.3-.2-.4-.4-.2-.2-.4-.3-.6-.5-.1-.1-.3-.2-.4-.3-.2-.1-.4-.3-.6-.4s-.4-.2-.6-.3-.4-.2-.6-.3c-.4-.2-.8-.4-1.2-.5h-.1c-.4-.1-.8-.2-1.2-.3-.2 0-.3-.1-.5-.1-.3-.1-.5-.1-.8-.2-.2 0-.4 0-.6-.1-.2 0-.5-.1-.7-.1s-.4 0-.6 0-.4 0-.7 0c-.2 0-.5 0-.7.1-.2 0-.4 0-.6.1-.3 0-.5.1-.8.2-.2 0-.3.1-.5.1-.4.1-.8.2-1.1.3h-.1c-.4.1-.8.3-1.2.5-.2.1-.4.2-.6.3s-.4.2-.6.3-.4.3-.7.4c-.1.1-.3.2-.4.3-.2.2-.4.3-.6.5-.1.1-.3.2-.4.4-.2.2-.3.3-.5.5s-.3.3-.5.5c-.1.1-.2.3-.4.4-.2.2-.3.4-.5.6-.1.1-.2.3-.3.4-.1.2-.3.4-.4.6s-.2.4-.3.6-.2.4-.3.6c-.2.4-.4.8-.5 1.2l-60.8 169.9c-2.2 7 1.4 14.6 8.3 17.1zm65.3-142.9 22.5 63h-45.1z"></svg>
+											</div>
+											<div class="fbox-content">
+												<h3 class="fw-normal ls-0 text-transform-none">會員訂閱制</h3>
+												<p class="text-muted">月付制會員享受全站漫畫無限閱讀，新作品優先觀看，專屬會員福利。</p>
+												<div class="mt-3">
+													<span class="badge bg-color text-light me-2">月費 NT$299</span>
+													<span class="badge bg-secondary text-light">無限閱讀</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 px-lg-4 mt-3 mt-md-0">
+								<div class="card border-color-pink p-2 py-lg-5 px-xl-3 px-lg-2">
+									<div class="card-body rounded">
+										<div class="feature-box media-box">
+											<div class="fbox-icon position-relative mb-3" style="width: 70px;height: 70px">
+												<svg enable-background="new 0 0 464.585 464.585" viewBox="0 0 464.585 464.585" xmlns="https://www.w3.org/2000/svg"><path d="m464.585 393.312-87.463-315.015-75.392 20.932 8.329 29.998h-83.857v-41.781h-78.243v30.92h-42.373v-68.159h-105.586v364.17h90.586 15 42.373 15 48.243 15 98.153v-233.662l64.838 233.528zm-301.626-290.866h48.243v37.147h-48.243zm0 99.364h48.243v170.575h-48.243zm0-15v-8.608h48.243v8.608zm0-23.608v-8.609h48.243v8.609zm-72.373 206.987h-75.586v-275.99h75.586zm0-304.982v13.992h-75.586v-13.992zm-75.586 334.171v-14.189h75.586v14.189zm132.959 0h-42.373v-266.012h42.373zm15 0v-11.993h48.243v11.993zm146.396 0h-83.153v-255.152h83.153zm90.279-3.6-52.742-189.961 46.485-12.907 52.742 189.961zm-56.755-204.414-4.133-14.884 46.485-12.907 4.133 14.884zm23.802-94.602 14.537 52.358-46.485 12.907-14.537-52.358z"><path d="m243.621 160.457h48.315v15h-48.315z"><path d="m243.621 186.81h48.315v15h-48.315z"><path d="m243.621 213.164h48.315v15h-48.315z"><path d="m243.621 365.797h48.315v15h-48.315z"><path d="m119.272 272.274h15v25.255h-15z"><path d="m119.272 311.805h15v57.099h-15z"><path d="m119.272 189.919h15v68.081h-15z"><path d="m119.272 150.387h15v26.354h-15z"></svg>
+											</div>
+											<div class="fbox-content">
+												<h3 class="fw-normal ls-0 text-transform-none">單部作品觀看</h3>
+												<p class="text-muted">單獨購買喜歡的作品，永久觀看權限，支援離線下載閱讀。</p>
+												<div class="mt-3">
+													<span class="badge bg-info text-light me-2">NT$50-150/部</span>
+													<span class="badge bg-warning text-dark">永久擁有</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card border-color-yellow p-2 py-lg-5 px-xl-3 px-lg-2 mt-3 mt-lg-5">
+									<div class="card-body rounded">
+										<div class="feature-box media-box">
+											<div class="fbox-icon position-relative mb-4" style="width: auto;height: 50px">
+												<div class="d-flex align-items-center">
+													<svg width="32px" height="32px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+														<g>
+															<path d="M127.999746,23.06353 C162.177385,23.06353 166.225393,23.1936027 179.722476,23.8094161 C192.20235,24.3789926 198.979853,26.4642218 203.490736,28.2166477 C209.464938,30.5386501 213.729395,33.3128586 218.208268,37.7917319 C222.687141,42.2706052 225.46135,46.5350617 227.782844,52.5092638 C229.535778,57.0201472 231.621007,63.7976504 232.190584,76.277016 C232.806397,89.7746075 232.93647,93.8226147 232.93647,128.000254 C232.93647,162.177893 232.806397,166.225901 232.190584,179.722984 C231.621007,192.202858 229.535778,198.980361 227.782844,203.491244 C225.46135,209.465446 222.687141,213.729903 218.208268,218.208776 C213.729395,222.687649 209.464938,225.461858 203.490736,227.783352 C198.979853,229.536286 192.20235,231.621516 179.722476,232.191092 C166.227425,232.806905 162.179418,232.936978 127.999746,232.936978 C93.8200742,232.936978 89.772067,232.806905 76.277016,232.191092 C63.7971424,231.621516 57.0196391,229.536286 52.5092638,227.783352 C46.5345536,225.461858 42.2700971,222.687649 37.7912238,218.208776 C33.3123505,213.729903 30.538142,209.465446 28.2166477,203.491244 C26.4637138,198.980361 24.3784845,192.202858 23.808908,179.723492 C23.1930946,166.225901 23.0630219,162.177893 23.0630219,128.000254 C23.0630219,93.8226147 23.1930946,89.7746075 23.808908,76.2775241 C24.3784845,63.7976504 26.4637138,57.0201472 28.2166477,52.5092638 C30.538142,46.5350617 33.3123505,42.2706052 37.7912238,37.7917319 C42.2700971,33.3128586 46.5345536,30.5386501 52.5092638,28.2166477 C57.0196391,26.4642218 63.7971424,24.3789926 76.2765079,23.8094161 C89.7740994,23.1936027 93.8221066,23.06353 127.999746,23.06353 M127.999746,0 C93.2367791,0 88.8783247,0.147348072 75.2257637,0.770274749 C61.601148,1.39218523 52.2968794,3.55566141 44.1546281,6.72008828 C35.7374966,9.99121548 28.5992446,14.3679613 21.4833489,21.483857 C14.3674532,28.5997527 9.99070739,35.7380046 6.71958019,44.1551362 C3.55515331,52.2973875 1.39167714,61.6016561 0.769766653,75.2262718 C0.146839975,88.8783247 0,93.2372872 0,128.000254 C0,162.763221 0.146839975,167.122183 0.769766653,180.774236 C1.39167714,194.398852 3.55515331,203.703121 6.71958019,211.845372 C9.99070739,220.261995 14.3674532,227.400755 21.4833489,234.516651 C28.5992446,241.632547 35.7374966,246.009293 44.1546281,249.28042 C52.2968794,252.444847 61.601148,254.608323 75.2257637,255.230233 C88.8783247,255.85316 93.2367791,256 127.999746,256 C162.762713,256 167.121675,255.85316 180.773728,255.230233 C194.398344,254.608323 203.702613,252.444847 211.844864,249.28042 C220.261995,246.009293 227.400247,241.632547 234.516143,234.516651 C241.632039,227.400755 246.008785,220.262503 249.279912,211.845372 C252.444339,203.703121 254.607815,194.398852 255.229725,180.774236 C255.852652,167.122183 256,162.763221 256,128.000254 C256,93.2372872 255.852652,88.8783247 255.229725,75.2262718 C254.607815,61.6016561 252.444339,52.2973875 249.279912,44.1551362 C246.008785,35.7380046 241.632039,28.5997527 234.516143,21.483857 C227.400247,14.3679613 220.261995,9.99121548 211.844864,6.72008828 C203.702613,3.55566141 194.398344,1.39218523 180.773728,0.770274749 C167.121675,0.147348072 162.762713,0 127.999746,0 Z M127.999746,62.2703115 C91.698262,62.2703115 62.2698034,91.69877 62.2698034,128.000254 C62.2698034,164.301738 91.698262,193.730197 127.999746,193.730197 C164.30123,193.730197 193.729689,164.301738 193.729689,128.000254 C193.729689,91.69877 164.30123,62.2703115 127.999746,62.2703115 Z M127.999746,170.667175 C104.435741,170.667175 85.3328252,151.564259 85.3328252,128.000254 C85.3328252,104.436249 104.435741,85.3333333 127.999746,85.3333333 C151.563751,85.3333333 170.666667,104.436249 170.666667,128.000254 C170.666667,151.564259 151.563751,170.667175 127.999746,170.667175 Z M211.686338,59.6734287 C211.686338,68.1566129 204.809755,75.0337031 196.326571,75.0337031 C187.843387,75.0337031 180.966297,68.1566129 180.966297,59.6734287 C180.966297,51.1902445 187.843387,44.3136624 196.326571,44.3136624 C204.809755,44.3136624 211.686338,51.1902445 211.686338,59.6734287 Z" fill="#0A0A08"></path>
+														</g>
+													</svg>
+													
+													<span class="text-muted ms-3 h6 m-0">+</span>
+													<svg width="32" height="32" class="ms-3" viewBox="0 0 512 512" xmlns="https://www.w3.org/2000/svg"><path d="m75 512h167v-182h-60v-60h60v-75c0-41.355469 33.644531-75 75-75h75v60h-60c-16.542969 0-30 13.457031-30 30v60h87.292969l-10 60h-77.292969v182h135c41.355469 0 75-33.644531 75-75v-362c0-41.355469-33.644531-75-75-75h-362c-41.355469 0-75 33.644531-75 75v362c0 41.355469 33.644531 75 75 75zm-45-437c0-24.8125 20.1875-45 45-45h362c24.8125 0 45 20.1875 45 45v362c0 24.8125-20.1875 45-45 45h-105v-122h72.707031l20-120h-92.707031v-30h90v-120h-105c-57.898438 0-105 47.101562-105 105v45h-60v120h60v122h-137c-24.8125 0-45-20.1875-45-45zm0 0"></svg>
+												</div>
+											</div>
+											<div class="fbox-content">
+												<h3 class="fw-normal text-transform-none ls-0">多平台同步</h3>
+												<p class="text-muted">支援手機、平板、電腦多平台閱讀，雲端同步書籤和閱讀進度。</p>
+												<div class="mt-3">
+													<span class="badge bg-success text-light me-2">跨平台</span>
+													<span class="badge bg-primary text-light">雲端同步</span>
+												</div>
+												<a href="#" class="btn btn-link font-body mt-3 p-0">下載APP..</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- 關於作者區塊已完全移除 -->
+
+			</div>
+		</section><!-- #content end -->
+
+		<!-- Footer Container -->
+		<div id="footer-container"></div>
+
+	</div><!-- #wrapper end -->
+
+	<!-- Switcher
+	============================================= -->
+	<button type="button" class="btn btn-dark body-scheme-toggle mode-switcher" data-bodyclass-toggle="dark" data-add-class="btn-warning" data-remove-class="btn-dark" data-add-html="<i class='bi-brightness-high'></i><span class='visually-hidden'>Light Mode</span>" data-remove-html="<i class='bi-moon-stars'></i><span class='visually-hidden'>Dark Mode</span>"><span class="visually-hidden">Dark Toggle</span></button>
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="uil uil-angle-up"></div>
+
+	<!-- JavaScripts
+	============================================= -->
+	<script src="js/plugins.min.js"></script>
+	<script src="js/functions.bundle.js"></script>
+	<script src="js/components-loader.js"></script>
+	<script src="js/comics-hero-loader.js"></script>
+
+	<script>
+		window.addEventListener( 'load', function() {
+			var swiper = new Swiper('.swiper-scroller', {
+				slidesPerView: 2,
+				spaceBetween: 50,
+				freeMode: true,
+				grabCursor: true,
+				navigation: {
+					nextEl: '.slider-arrow-right-1',
+					prevEl: '.slider-arrow-left-1',
+				},
+				scrollbar: {
+				el: '.swiper-scrollbar',
+				},
+				mousewheel: true,
+				breakpoints: {
+					768: {
+						spaceBetween: 20,
+					},
+					576: {
+						spaceBetween: 15,
+					}
+				  }
+			});
+		});
+	</script>
+
+</body>
+</html>

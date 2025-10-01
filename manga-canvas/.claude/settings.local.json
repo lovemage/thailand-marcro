@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(taskkill:*)",
+      "Bash(tasklist)",
+      "Bash(Stop-Process -Name chrome -Force)",
+      "Bash(python:*)",
+      "Bash(npx http-server:*)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(npm start)",
+      "Bash(dir)",
+      "Bash(copy:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(node:*)",
+      "Bash(echo:*)",
+      "Bash(dir:*)",
+      "Bash(forfiles:*)",
+      "Bash(Stop-Process -Id 27920 -Force)",
+      "Bash(set PORT=3001)",
+      "Bash(find:*)",
+      "Read(//c/Users/lovem/.claude/**)",
+      "Bash(cmd /c:*)",
+      "Bash(Stop-Process -Id 8328 -Force)",
+      "Bash(set PORT=3003)",
+      "Bash(Stop-Process -Name node -Force)",
+      "Bash(set PORT=3004)",
+      "Bash(npm run dev:clean:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(tasklist:*)",
+      "Bash(Stop-Process -Id 23948 -Force)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

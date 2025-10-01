@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.header {
+    text-align: center;
+    padding: 20px 0;
+    padding-bottom: 130px;
+}
+.logo{position: absolute;left: 50%;transform: translateX(-50%);}
+.logo img{width: 180px;}
+.subtitle {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    padding-bottom: 15px;
+}
+.image-container {
+    width: 100%;
+    overflow: hidden;
+    /*! border-radius: 10px; */
+}
+.image {
+    width: 100%;
+    display: block;
+}
+.dots {
+    text-align: center;
+    margin: 5px auto;
+    border-bottom: 3px solid #020100;
+    padding-bottom: 10px;
+    width: 70%;
+}
+.dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #020100;
+    margin: 0 3px;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0 10px;
+}
+.button {
+    width: 250px;
+    padding: 12px 0;
+    background-color: #3f3d42;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer {
+    text-align: center;
+    padding: 15px 0 30px;
+}
+.website {
+    color: #595854;
+    text-decoration: none;
+    margin-bottom: 25px;
+    display: block;
+    font-weight: bold;
+}
+.icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.icon {
+    font-size: 20px;
+    text-decoration: none;
+    background: #52514d;
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nBg{background: #ffffff;border-radius: 20px 20px 0 0;padding-top: 70px;}
+.icon img{width: 20px;height: 20px;display: block;}
+.xia{margin-bottom: 10px;}
+.xia img{width: 30px;height: 30px;}
+.button img{width: 20px;margin-right: 8px;height: 20px;}

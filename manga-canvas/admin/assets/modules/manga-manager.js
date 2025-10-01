@@ -26,13 +26,13 @@ class MangaManager {
         }
 
         // 評價開關
-        const ratingToggle = document.getElementById('ratingEnabled');
+        const ratingToggle = document.getElementById('mangaFormRatingEnabled');
         if (ratingToggle) {
             ratingToggle.addEventListener('change', (e) => this.toggleRatingSettings(e.target.checked));
         }
 
         // 標籤輸入
-        const tagsInput = document.getElementById('mangaTags');
+        const tagsInput = document.getElementById('mangaFormTags');
         if (tagsInput) {
             tagsInput.addEventListener('keydown', (e) => this.handleTagInput(e));
         }
@@ -150,17 +150,17 @@ class MangaManager {
 
     // 填入表單資料
     populateForm(manga) {
-        document.getElementById('mangaTitle').value = manga.title || '';
-        document.getElementById('mangaDescription').value = manga.description || '';
-        document.getElementById('mangaType').value = manga.type || '';
-        document.getElementById('mangaCategory').value = manga.category || '';
-        document.getElementById('mangaStatus').value = manga.status || '';
-        document.getElementById('mangaAgeRating').value = manga.ageRating || '';
+        document.getElementById('mangaFormTitle').value = manga.title || '';
+        document.getElementById('mangaFormDescription').value = manga.description || '';
+        document.getElementById('mangaFormType').value = manga.type || '';
+        document.getElementById('mangaFormCategory').value = manga.category || '';
+        document.getElementById('mangaFormStatus').value = manga.status || '';
+        document.getElementById('mangaFormAgeRating').value = manga.ageRating || '';
 
         // 評價設定
-        const ratingEnabled = document.getElementById('ratingEnabled');
-        const ratingStars = document.getElementById('ratingStars');
-        const ratingValue = document.getElementById('ratingValue');
+        const ratingEnabled = document.getElementById('mangaFormRatingEnabled');
+        const ratingStars = document.getElementById('mangaFormRatingStars');
+        const ratingValue = document.getElementById('mangaFormRatingValue');
 
         if (ratingEnabled) ratingEnabled.checked = manga.rating.enabled;
         if (ratingStars) ratingStars.value = manga.rating.stars;
@@ -174,9 +174,9 @@ class MangaManager {
 
     // 重置表單
     resetForm() {
-        document.getElementById('ratingEnabled').checked = false;
-        document.getElementById('ratingStars').value = 5;
-        document.getElementById('ratingValue').value = 0;
+        document.getElementById('mangaFormRatingEnabled').checked = false;
+        document.getElementById('mangaFormRatingStars').value = 5;
+        document.getElementById('mangaFormRatingValue').value = 0;
         this.toggleRatingSettings(false);
         this.displayTags([]);
     }
@@ -194,9 +194,9 @@ class MangaManager {
             status: formData.get('status'),
             ageRating: formData.get('ageRating'),
             rating: {
-                enabled: document.getElementById('ratingEnabled').checked,
-                stars: parseInt(document.getElementById('ratingStars').value),
-                value: parseFloat(document.getElementById('ratingValue').value)
+                enabled: document.getElementById('mangaFormRatingEnabled').checked,
+                stars: parseInt(document.getElementById('mangaFormRatingStars').value),
+                value: parseFloat(document.getElementById('mangaFormRatingValue').value)
             },
             tags: this.getCurrentTags()
         };
@@ -241,7 +241,7 @@ class MangaManager {
 
     // 切換評價設定顯示
     toggleRatingSettings(enabled) {
-        const ratingSettings = document.getElementById('ratingSettings');
+        const ratingSettings = document.getElementById('mangaFormRatingSettings');
         if (ratingSettings) {
             ratingSettings.style.display = enabled ? 'block' : 'none';
         }
@@ -262,7 +262,7 @@ class MangaManager {
 
     // 添加標籤
     addTag(tag) {
-        const container = document.getElementById('tagsContainer');
+        const container = document.getElementById('mangaFormTagsContainer');
         if (!container) return;
 
         const tagElement = document.createElement('span');
@@ -276,7 +276,7 @@ class MangaManager {
 
     // 顯示現有標籤
     displayTags(tags) {
-        const container = document.getElementById('tagsContainer');
+        const container = document.getElementById('mangaFormTagsContainer');
         if (!container) return;
 
         container.innerHTML = '';
@@ -285,7 +285,7 @@ class MangaManager {
 
     // 獲取當前標籤
     getCurrentTags() {
-        const container = document.getElementById('tagsContainer');
+        const container = document.getElementById('mangaFormTagsContainer');
         if (!container) return [];
 
         return Array.from(container.querySelectorAll('.tag-item'))
@@ -376,9 +376,11 @@ class MangaManager {
     }
 
     showMessage(message, type = 'info') {
-        // 可以使用 Toast 或其他通知系統
-        console.log(`${type.toUpperCase()}: ${message}`);
-        // TODO: 實現實際的通知系統
+        if (window.uiManager) {
+            uiManager.showNotification(message, type);
+        } else {
+            console.log(`${type.toUpperCase()}: ${message}`);
+        }
     }
 }
 

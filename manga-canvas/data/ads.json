@@ -1,0 +1,48 @@
+{
+  "heroCarousel": {
+    "enabled": true,
+    "autoplay": true,
+    "speed": 4
+  },
+  "heroSlides": [
+    {
+      "id": "hero2",
+      "title": "test01",
+      "subtitle": null,
+      "badge": null,
+      "description": "test01",
+      "author": null,
+      "price": null,
+      "originalPrice": null,
+      "rating": null,
+      "buttonText": null,
+      "buttonLink": null,
+      "mainImage": "https://res.cloudinary.com/dpbhhrkhj/image/upload/v1759285176/tji-studio/manga-1759285173551.jpg",
+      "sideImages": [
+        "/images/20191203095924_360x480_82.jpg"
+      ],
+      "cardEnabled": true,
+      "cardTitle": null,
+      "cardContent": null,
+      "order": 1
+    },
+    {
+      "id": "hero1759288302671",
+      "title": "test02",
+      "subtitle": null,
+      "badge": null,
+      "description": "test02",
+      "author": null,
+      "price": null,
+      "originalPrice": null,
+      "rating": null,
+      "buttonText": null,
+      "buttonLink": null,
+      "cardTitle": null,
+      "cardContent": null,
+      "mainImage": "https://res.cloudinary.com/dpbhhrkhj/image/upload/v1759288301/tji-studio/manga-1759288299961.jpg",
+      "order": 2
+    }
+  ],
+  "lastUpdated": "2025-10-01T03:11:42.671Z"
+}

@@ -1,0 +1,47 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.27.5",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-replace": "^1.1.4",
+    "gulp-rtlcss": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.37.0",
+    "nodemon": "^3.0.1"
+  },
+  "name": "canvas",
+  "version": "7.3.1",
+  "description": "The Multi-Purpose HTML5 Template",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "dev:clean": "scripts\\dev.bat",
+    "dev:kill": "taskkill /f /im node.exe",
+    "static": "npx http-server -p 8080",
+    "build": "browser-sync start -sw",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SemiColonWeb",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.4",
+    "cloudinary": "^1.41.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "express-fileupload": "^1.4.1",
+    "gulp-rename": "^2.0.0",
+    "imagemin": "^8.0.0",
+    "imagemin-webp": "^6.0.0"
+  }
+}

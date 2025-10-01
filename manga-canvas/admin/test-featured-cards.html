@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精選作品卡片測試 - 基於 sample2.css.md</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(#eee, #ddd);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .featured-card {
+            --bg: #fff;
+            --title-color: #000;
+            --title-color-hover: #000;
+            --text-color: #666;
+            --button-color: #eee;
+            --button-color-hover: #ddd;
+
+            background: var(--bg);
+            border-radius: 2rem;
+            padding: 0.5rem;
+            width: 20rem;
+            height: 30rem;
+            margin: 2rem;
+            overflow: clip;
+            position: relative;
+            font-family: 'Lato', 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+        }
+
+        .featured-card::before {
+            content: "";
+            position: absolute;
+            width: calc(100% - 1rem);
+            height: 30%;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            mask: linear-gradient(transparent, rgba(0,0,0,0.9) 80%);
+            backdrop-filter: blur(1rem);
+            border-radius: 0 0 1.5rem 1.5rem;
+            translate: 0 0;
+            transition: translate 0.25s;
+        }
+
+        .featured-card > img {
+            max-width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            object-position: 50% 5%;
+            border-radius: 1.5rem;
+            display: block;
+            transition: aspect-ratio 0.25s, object-position 0.5s;
+        }
+
+        .featured-card > section {
+            margin: 1rem;
+            height: calc(33.3333% - 1rem);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-card > section h2 {
+            margin: 0;
+            margin-block-end: 1rem;
+            font-size: 1.5rem;
+            opacity: 0;
+            translate: 0 -200%;
+            opacity: 1;
+            color: var(--title-color);
+            transition: color 0.5s, margin-block-end 0.25s, opacity 1s, translate 0.25s;
+        }
+
+        .featured-card > section p {
+            font-size: 0.95rem;
+            line-height: 1.3;
+            color: var(--text-color);
+            opacity: 0;
+            margin: 0;
+            translate: 0 100%;
+            transition: margin-block-end 0.25s, opacity 1s 0.2s, translate 0.25s 0.2s;
+        }
+
+        .featured-card > section > div {
+            flex: 1;
+            align-items: flex-end;
+            display: flex;
+            justify-content: space-between;
+            translate: 0 100%;
+            opacity: 0;
+            transition: translate 0.25s 0.2s, opacity 1s;
+        }
+
+        .featured-card > section > div .tag {
+            align-self: center;
+            color: var(--title-color-hover);
+        }
+
+        .featured-card > section > div button {
+            border: 1px solid transparent;
+            border-radius: 1.25rem 1.25rem 1.5rem 1.25rem;
+            font-size: 1rem;
+            padding: 1rem 1.5rem 1rem 2.75rem;
+            translate: 1rem;
+            background: var(--button-color);
+            transition: background 0.33s;
+            outline-offset: 2px;
+            position: relative;
+            color: var(--title-color-hover);
+        }
+
+        .featured-card > section > div button::before,
+        .featured-card > section > div button::after {
+            content: "";
+            width: 0.85rem;
+            height: 0.1rem;
+            background: currentcolor;
+            position: absolute;
+            top: 50%;
+            left: 1.33rem;
+            border-radius: 1rem;
+        }
+
+        .featured-card > section > div button::after {
+            rotate: 90deg;
+            transition: rotate 0.15s;
+        }
+
+        .featured-card > section > div button.following::after {
+            rotate: 0deg;
+        }
+
+        .featured-card > section > div button:hover {
+            background: var(--button-color-hover);
+        }
+
+        .featured-card > section > div button:focus {
+            outline: 2px solid var(--text-color);
+        }
+
+        /* 懸停效果 */
+        .featured-card:hover::before,
+        .featured-card:focus-within::before {
+            translate: 0 100%;
+        }
+
+        .featured-card:hover > img,
+        .featured-card:focus-within > img {
+            aspect-ratio: 1 / 1;
+            object-position: 50% 10%;
+            transition: aspect-ratio 0.25s, object-position 0.25s;
+        }
+
+        .featured-card:hover > section h2,
+        .featured-card:hover > section p,
+        .featured-card:focus-within > section h2,
+        .featured-card:focus-within > section p {
+            translate: 0 0;
+            margin-block-end: 0.5rem;
+            opacity: 1;
+        }
+
+        .featured-card:hover > section h2,
+        .featured-card:focus-within > section h2 {
+            color: var(--title-color-hover);
+        }
+
+        .featured-card:hover > section > div,
+        .featured-card:focus-within > section > div {
+            translate: 0 0;
+            opacity: 1;
+            transition: translate 0.25s 0.25s, opacity 0.5s 0.25s;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            body {
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .featured-card {
+                width: 16rem;
+                height: 24rem;
+                margin: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .featured-card {
+                width: 14rem;
+                height: 20rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 卡片1 -->
+    <div class="featured-card">
+        <img src="https://assets.codepen.io/1506195/paul-atreides.jpg" alt="Paul Atreides" />
+        <section>
+            <h2>Paul Atreides</h2>
+            <p>Duke of House Atreides. Kwisatz Haderach. Lisan al-Gaib. Padishah Emperor.</p>
+            <div>
+                <div class="tag" aria-label="15 million followers">
+                    <i class="fa-solid fa-user"></i> 15M
+                </div>
+                <button onclick="toggleFollow(this)">Follow</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- 卡片2 -->
+    <div class="featured-card">
+        <img src="https://i.ibb.co/jPhPjG6W/roxy-aln-A7-Fq-Nh-YQm-TA-unsplash.jpg" alt="Duncan Idaho" />
+        <section>
+            <h2>Duncan Idaho</h2>
+            <p>Swordmaster of the Ginaz. Loyal to House Atreides. Master of combat and strategy.</p>
+            <div>
+                <div class="tag" aria-label="8 million followers">
+                    <i class="fa-solid fa-user"></i> 8M
+                </div>
+                <button onclick="toggleFollow(this)">Follow</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- 卡片3 -->
+    <div class="featured-card">
+        <img src="https://i.ibb.co/dJgDPQDB/nils-limp-3-S7i7-T-Wtdg-unsplash.jpg" alt="Lady Jessica" />
+        <section>
+            <h2>Lady Jessica</h2>
+            <p>Bene Gesserit sister. Mother of Paul Atreides. Master of the Voice and ancient techniques.</p>
+            <div>
+                <div class="tag" aria-label="12 million followers">
+                    <i class="fa-solid fa-user"></i> 12M
+                </div>
+                <button onclick="toggleFollow(this)">Follow</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleFollow(button) {
+            button.classList.toggle("following");
+            button.textContent = button.classList.contains("following") ? "Unfollow" : "Follow";
+        }
+
+        // 模擬點擊第一個按鈕來展示效果（可選）
+        setTimeout(function() {
+            document.querySelector("button").focus();
+        }, 500);
+    </script>
+</body>
+</html>

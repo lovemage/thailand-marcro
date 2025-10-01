@@ -1,0 +1,86 @@
+{
+  "profile": {
+    "name": "Tji",
+    "age": 23,
+    "title": "漫畫創作者，台灣",
+    "image": "https://res.cloudinary.com/dpbhhrkhj/image/upload/v1758799803/tji-studio/manga-1758799801392.png",
+    "introduction": [
+      "大家好，我是Tji，今年23歲，是一位專業的漫畫創作者。我的創作之路始於童年時光，6歲時便開始接觸水彩畫，那些繽紛的色彩為我開啟了藝術創作的大門。",
+      "10歲那年，我因為一本日本漫畫而深深著迷於這個奇妙的世界。從那時起，我不僅開始學習日文，更重要的是開始創作屬於自己的故事和繪本。漫畫不僅是我的興趣，更成為了我表達內心世界的重要媒介。",
+      "經過多年的努力與磨練，我致力於創作充滿想像力的原創漫畫作品。每一個故事都融合了我對生活的觀察與感悟，希望能夠透過筆下的角色和情節，與讀者產生共鳴，帶給大家溫暖與力量。",
+      "在Tji Studio，我專注於提供高品質的漫畫創作服務，包括原創故事構思、角色設計、以及完整的漫畫製作。歡迎您一同進入我創造的奇幻世界！"
+    ]
+  },
+  "works": [
+    {
+      "id": "work1",
+      "title": "這次我真的怒了",
+      "image": "/images/20250923163432_360x480_76.jpg",
+      "description": "一個充滿魔法與冒險的故事",
+      "link": "/article.html"
+    },
+    {
+      "id": "work2",
+      "title": "黑暗之炎",
+      "image": "/images/20250923151711_360x480_80.jpg",
+      "description": "在黑暗中尋找光明的英雄傳說",
+      "link": "/article.html"
+    },
+    {
+      "id": "work3",
+      "title": "機甲戰士",
+      "image": "/images/20191202171505_360x480_73.jpg",
+      "description": "未來世界的機械戰爭故事",
+      "link": "/article.html"
+    },
+    {
+      "id": "work4",
+      "title": "幻想世界冒險記",
+      "image": "/images/20191203095924_360x480_82.jpg",
+      "description": "奇幻世界的冒險之旅",
+      "link": "/article.html"
+    },
+    {
+      "id": "work5",
+      "title": "龍族傳說",
+      "image": "/images/20191203102548_360x480_82.jpg",
+      "description": "古老龍族的傳奇故事",
+      "link": "/article.html"
+    },
+    {
+      "id": "work6",
+      "title": "星際戰士",
+      "image": "/images/20191220112159_360x480_75.jpg",
+      "description": "宇宙戰爭的英雄故事",
+      "link": "/article.html"
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "facebook",
+      "url": "#",
+      "icon": "fa-brands fa-facebook-f"
+    },
+    {
+      "platform": "twitter",
+      "url": "#",
+      "icon": "fa-brands fa-x-twitter"
+    },
+    {
+      "platform": "github",
+      "url": "#",
+      "icon": "fa-brands fa-github"
+    },
+    {
+      "platform": "pinterest",
+      "url": "#",
+      "icon": "fa-brands fa-pinterest-p"
+    },
+    {
+      "platform": "forrst",
+      "url": "#",
+      "icon": "fa-solid fa-tree"
+    }
+  ],
+  "lastUpdated": "2025-09-26T06:38:51.031Z"
+}

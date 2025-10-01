@@ -1,0 +1,30 @@
+{
+  "carousel": {
+    "enabled": true,
+    "autoplay": true,
+    "speed": 3,
+    "images": [
+      {
+        "id": "slide1",
+        "url": "/index_html_css/image/bg.jpg",
+        "alt": "預設背景",
+        "title": "歡迎來到 TJI Studio",
+        "description": "專業漫畫創作工作室",
+        "order": 1
+      },
+      {
+        "id": "slide1758857391911",
+        "url": "https://res.cloudinary.com/dpbhhrkhj/image/upload/v1758857390/tji-studio/manga-1758857388430.png",
+        "alt": "貓咪",
+        "title": "貓咪",
+        "description": "梗圖",
+        "order": 2
+      }
+    ]
+  },
+  "dots": {
+    "enabled": true,
+    "count": 6
+  },
+  "lastUpdated": "2025-10-01T05:34:11.404Z"
+}

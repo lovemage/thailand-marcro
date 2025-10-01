@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME - TJI Studio | 漫畫創作工作室</title>
+    <link rel="stylesheet" href="index_html_css/css/style.css">
+    <style>
+        /* 輪播相關樣式 */
+        .dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .dot:hover {
+            opacity: 0.8;
+        }
+
+        .dot.active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image {
+            transition: all 0.5s ease;
+        }
+
+        /* 輪播指示器 */
+        .carousel-info {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: none;
+        }
+
+        .carousel-info.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="images/logo-tji.png" alt="TJI Studio">
+            </div>
+        </div>
+        <div class="nBg">
+            <div class="subtitle">Independent Storyteller</div>
+            <div class="image-container">
+                <img src="index_html_css/image/bg.jpg" alt="BG" class="image">
+                <div class="carousel-info" id="carouselInfo"></div>
+            </div>
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="buttons">
+                <a href="comics.html" class="button">
+                    <img src="index_html_css/image/i1.png" alt="">
+                    Comics 漫畫</a>
+                <a href="#" class="button">  <img src="index_html_css/image/i2.png" alt="">Collectibles 周邊</a>
+                <a href="#" class="button">  <img src="index_html_css/image/i3.png" alt="">Delivery 問答</a>
+            </div>
+            <div class="footer">
+                <div class="xia">
+                    <img src="index_html_css/image/xia.png" alt="">
+                </div>
+                <a href="http://TJI-DESIGN.NET" class="website">TJI-DESIGN.NET</a>
+                <div class="icons">
+                    <a href="#" class="icon"><img src="index_html_css/image/f1.png" alt=""></a>
+                    <a href="#" class="icon"><img src="index_html_css/image/f2.png" alt=""></a>
+                    <a href="#" class="icon"><img src="index_html_css/image/f3.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 首頁輪播功能 -->
+    <script src="js/homepage-loader.js"></script>
+</body>
+</html>

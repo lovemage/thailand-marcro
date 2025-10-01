@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TJI Studio - 管理系統登入</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            color: #000000;
+        }
+
+        .login-container {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 0;
+            padding: 3rem;
+            box-shadow: 8px 8px 0px #000000;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .logo h2 {
+            color: #000000;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .logo p {
+            color: #666666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border: 2px solid #666666;
+            padding: 1rem;
+            font-size: 1rem;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .form-control:focus {
+            border-color: #000000;
+            box-shadow: none;
+            background: #ffffff;
+        }
+
+        .form-floating label {
+            color: #666666;
+        }
+
+        .btn-login {
+            background: #000000;
+            border: 2px solid #000000;
+            border-radius: 0;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            color: #ffffff;
+        }
+
+        .btn-login:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .btn-primary {
+            background: #000000 !important;
+            border: 2px solid #000000 !important;
+            color: #ffffff !important;
+        }
+
+        .btn-primary:hover {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+        }
+
+        .alert {
+            border-radius: 0;
+            border: 2px solid;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-success {
+            background: #ffffff;
+            color: #28a745;
+            border-color: #28a745;
+        }
+
+        .alert-danger {
+            background: #ffffff;
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .loading {
+            display: none;
+        }
+
+        .loading.show {
+            display: inline-block;
+        }
+
+        .text-muted {
+            color: #666666 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="../images/logo-tji.png" alt="TJI Studio" onerror="this.style.display='none'">
+            <h2>TJI Studio</h2>
+            <p>漫畫管理系統</p>
+        </div>
+
+        <div id="alert-container"></div>
+
+        <form id="loginForm">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="username" name="username" placeholder="管理員帳號" required>
+                <label for="username"><i class="fas fa-user me-2"></i>管理員帳號</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" class="form-control" id="password" name="password" placeholder="密碼" required>
+                <label for="password"><i class="fas fa-lock me-2"></i>密碼</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-login w-100">
+                <span class="loading">
+                    <i class="fas fa-spinner fa-spin me-2"></i>登入中...
+                </span>
+                <span class="login-text">
+                    <i class="fas fa-sign-in-alt me-2"></i>登入管理系統
+                </span>
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            <small class="text-muted">
+                <i class="fas fa-shield-alt me-1"></i>
+                僅授權人員可登入
+            </small>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const alertContainer = document.getElementById('alert-container');
+        const loadingSpan = document.querySelector('.loading');
+        const loginText = document.querySelector('.login-text');
+
+        function showAlert(message, type = 'danger') {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(loginForm);
+            const credentials = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+
+            // 顯示載入狀態
+            loadingSpan.classList.add('show');
+            loginText.style.display = 'none';
+            loginForm.querySelector('button').disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentials)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // 儲存 token
+                    localStorage.setItem('authToken', result.token);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+
+                    showAlert('登入成功！正在跳轉...', 'success');
+
+                    // 跳轉到管理界面
+                    setTimeout(() => {
+                        window.location.href = '/admin/dashboard.html';
+                    }, 1000);
+                } else {
+                    showAlert(result.message || '登入失敗');
+                }
+            } catch (error) {
+                console.error('登入錯誤:', error);
+                showAlert('連線失敗，請檢查網路連線');
+            } finally {
+                // 隱藏載入狀態
+                loadingSpan.classList.remove('show');
+                loginText.style.display = 'inline';
+                loginForm.querySelector('button').disabled = false;
+            }
+        });
+
+        // 檢查是否已經登入
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            // 驗證 token 是否有效
+            fetch('/api/auth/verify', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    window.location.href = '/admin/dashboard.html';
+                }
+            })
+            .catch(() => {
+                // Token 無效，清除本地儲存
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+            });
+        }
+    </script>
+</body>
+</html>

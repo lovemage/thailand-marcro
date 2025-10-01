@@ -1,0 +1,13 @@
+{
+  "hero": {
+    "enabled": true,
+    "autoplay": true,
+    "speed": 3,
+    "slides": []
+  },
+  "heroTitle": {
+    "title": "Tji studio manga studio",
+    "description": "Discover popular Japanese manga series with over 150,000 chapters to read on MangaPlaza! Sign up and read the 1st chapter of even more titles for FREE!"
+  },
+  "lastUpdated": "2025-10-01T02:43:33.739Z"
+}

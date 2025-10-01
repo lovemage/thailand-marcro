@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="author" content="SemiColonWeb">
+	<meta name="description" content="Create Articles &amp; eBooks Websites with Canvas Template. Get Canvas to build powerful websites easily with the Highly Customizable &amp; Best Selling Bootstrap Template, today.">
+
+	<!-- Font Imports -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+	<!-- Core Style -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- Font Icons -->
+	<link rel="stylesheet" href="css/font-icons.css">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<!-- Plugins/Components CSS -->
+	<link rel="stylesheet" href="css/components/bs-switches.css">
+
+	<!-- Niche Demos -->
+	<link rel="stylesheet" href="demos/articles/articles.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/custom.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- 滑動卡片樣式 -->
+	<style>
+		/* 漢堡選單按鈕 */
+		.hamburger-menu {
+			position: fixed;
+			top: 20px;
+			left: 20px;
+			z-index: 1000;
+			background: rgba(255, 255, 255, 0.9);
+			border: none;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.hamburger-menu:hover {
+			background: rgba(255, 255, 255, 1);
+			transform: scale(1.1);
+		}
+
+		.hamburger-icon {
+			width: 20px;
+			height: 15px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.hamburger-icon span {
+			width: 100%;
+			height: 2px;
+			background-color: #333;
+			transition: all 0.3s ease;
+		}
+
+		/* 下拉選單 */
+		.hamburger-dropdown {
+			position: fixed;
+			top: 80px;
+			left: 20px;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border: 2px solid rgba(0,0,0,0.1);
+			border-radius: 16px;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+			z-index: 999;
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(-10px);
+			transition: all 0.3s ease;
+			padding: 8px;
+			min-width: 60px;
+		}
+
+		.hamburger-dropdown.active {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+		}
+
+		.dropdown-item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 44px;
+			height: 44px;
+			margin: 2px 0;
+			border: none;
+			background: transparent;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			color: #333;
+			font-size: 18px;
+		}
+
+		.dropdown-item:hover {
+			background: rgba(0,0,0,0.1);
+			transform: scale(1.1);
+		}
+
+		.dropdown-item:active {
+			transform: scale(0.95);
+		}
+
+		/* 漢堡選單開啟狀態 */
+		.hamburger-menu.active .hamburger-icon span:nth-child(1) {
+			transform: rotate(45deg) translate(5px, 5px);
+		}
+
+		.hamburger-menu.active .hamburger-icon span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.hamburger-menu.active .hamburger-icon span:nth-child(3) {
+			transform: rotate(-45deg) translate(7px, -6px);
+		}
+
+		/* 水平滑動容器 */
+		.works-slider-container {
+			padding: 60px 0 40px;
+			overflow: hidden;
+		}
+
+		.works-slider {
+			display: flex;
+			gap: 20px;
+			padding: 20px 40px;
+			overflow-x: auto;
+			scroll-behavior: smooth;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none; /* Firefox */
+			-ms-overflow-style: none; /* IE and Edge */
+		}
+
+		.works-slider::-webkit-scrollbar {
+			display: none; /* Chrome, Safari and Opera */
+		}
+
+		/* 作品卡片 */
+		.work-card {
+			flex: 0 0 280px;
+			background: white;
+			border-radius: 16px;
+			overflow: hidden;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			position: relative;
+		}
+
+		.work-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+		}
+
+		.work-card-image {
+			width: 100%;
+			height: 320px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			position: relative;
+		}
+
+		.work-card-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+			opacity: 0;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.work-card:hover .work-card-overlay {
+			opacity: 1;
+		}
+
+		.work-card-play {
+			background: rgba(255,255,255,0.9);
+			border: none;
+			border-radius: 50%;
+			width: 60px;
+			height: 60px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			color: #333;
+			transition: all 0.3s ease;
+		}
+
+		.work-card-play:hover {
+			background: white;
+			transform: scale(1.1);
+		}
+
+		.work-card-info {
+			padding: 16px;
+			background: white;
+		}
+
+		.work-card-category {
+			background: #f0f0f0;
+			color: #666;
+			padding: 4px 12px;
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 500;
+			display: inline-block;
+			margin-bottom: 8px;
+		}
+
+		.work-card-title {
+			font-size: 16px;
+			font-weight: 600;
+			color: #333;
+			margin-bottom: 8px;
+			line-height: 1.3;
+		}
+
+		.work-card-description {
+			font-size: 13px;
+			color: #666;
+			line-height: 1.4;
+			margin-bottom: 12px;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.work-card-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.work-card-button {
+			background: #333;
+			color: white;
+			border: none;
+			padding: 8px 16px;
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+
+		.work-card-button:hover {
+			background: #555;
+			color: white;
+			transform: translateY(-1px);
+		}
+
+		/* 新增的漫畫卡片樣式 */
+		.work-card-meta {
+			display: flex;
+			gap: 8px;
+			margin-bottom: 8px;
+			flex-wrap: wrap;
+		}
+
+		.work-card-type {
+			background: #007bff;
+			color: white;
+			padding: 2px 8px;
+			border-radius: 12px;
+			font-size: 10px;
+			font-weight: 500;
+			display: inline-block;
+		}
+
+		.work-card-age-rating {
+			background: #6c757d;
+			color: white;
+			padding: 2px 8px;
+			border-radius: 12px;
+			font-size: 10px;
+			font-weight: 500;
+			display: inline-block;
+		}
+
+		.work-card-status {
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			padding: 4px 8px;
+			border-radius: 12px;
+			font-size: 10px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		.status-連載中 {
+			background: #28a745;
+			color: white;
+		}
+
+		.status-完結 {
+			background: #007bff;
+			color: white;
+		}
+
+		.status-暫停 {
+			background: #ffc107;
+			color: #000;
+		}
+
+		.work-card-rating {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 8px;
+		}
+
+		.rating-stars {
+			color: #ffc107;
+			font-size: 14px;
+		}
+
+		.rating-value {
+			font-size: 12px;
+			color: #666;
+		}
+
+		.work-card-tags {
+			margin-bottom: 12px;
+		}
+
+		.work-card-tag {
+			display: inline-block;
+			background: #f8f9fa;
+			border: 1px solid #dee2e6;
+			border-radius: 12px;
+			padding: 2px 6px;
+			font-size: 10px;
+			margin-right: 4px;
+			margin-bottom: 3px;
+			color: #495057;
+		}
+
+		.work-card-tag-more {
+			display: inline-block;
+			background: #e9ecef;
+			border-radius: 12px;
+			padding: 2px 6px;
+			font-size: 10px;
+			color: #6c757d;
+			font-weight: 500;
+		}
+
+		.empty-state {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 300px;
+			width: 100%;
+		}
+
+		/* 滑動指示器 */
+		.slider-indicators {
+			display: flex;
+			justify-content: center;
+			gap: 8px;
+			margin-top: 20px;
+		}
+
+		.slider-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #ddd;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.slider-dot.active {
+			background: #333;
+			transform: scale(1.2);
+		}
+
+		/* 響應式設計 */
+		@media (max-width: 768px) {
+			.works-slider {
+				padding: 20px 20px;
+				gap: 15px;
+			}
+
+			.work-card {
+				flex: 0 0 240px;
+			}
+
+			.work-card-image {
+				height: 280px;
+			}
+
+			/* 在移動端隱藏原生導航的漢堡選單 */
+			.primary-menu-trigger,
+			.cnvs-hamburger {
+				display: none !important;
+			}
+		}
+
+		@media (max-width: 576px) {
+			.works-slider {
+				padding: 20px 15px;
+				gap: 12px;
+			}
+
+			.work-card {
+				flex: 0 0 220px;
+			}
+
+			.work-card-image {
+				height: 260px;
+			}
+		}
+	</style>
+
+
+	<!-- Document Title
+	============================================= -->
+	<title>作品集 - Tji Studio | 漫畫創作工作室</title>
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper">
+		<!-- 漢堡選單按鈕 -->
+		<button class="hamburger-menu" id="hamburgerBtn" onclick="toggleMenu()">
+			<div class="hamburger-icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</button>
+
+		<!-- 下拉選單 -->
+		<div class="hamburger-dropdown" id="hamburgerDropdown">
+			<button class="dropdown-item" onclick="goHome()" title="首頁">
+				<i class="fas fa-home"></i>
+			</button>
+			<button class="dropdown-item" onclick="nextPage()" title="下一頁">
+				<i class="fas fa-chevron-right"></i>
+			</button>
+			<button class="dropdown-item" onclick="prevPage()" title="上一頁">
+				<i class="fas fa-chevron-left"></i>
+			</button>
+		</div>
+
+		<!-- Navbar Container -->
+		<div id="navbar-container"></div>
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap pb-0">
+
+				<div class="container text-center">
+					<div class="heading-block border-bottom-0">
+						<span class="before-heading font-body">熱門作品</span>
+						<h2 class="text-transform-none ls-0 fw-normal">精選漫畫作品集</h2>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+
+				<!-- 滑動作品展示區 -->
+				<div class="works-slider-container">
+					<div id="shop" class="works-slider">
+						<!-- 動態載入作品卡片 -->
+					</div><!-- #shop end -->
+
+					<div class="slider-indicators" id="sliderIndicators">
+						<!-- 動態載入滑動指示器 -->
+					</div>
+				</div>
+
+			</div>
+		</section><!-- #content end -->
+		<!-- Footer Container -->
+		<div id="footer-container"></div>
+
+	</div><!-- #wrapper end -->
+
+	<!-- Switcher
+	============================================= -->
+	<button type="button" class="btn btn-dark body-scheme-toggle mode-switcher" data-bodyclass-toggle="dark" data-add-class="btn-warning" data-remove-class="btn-dark" data-add-html="<i class='bi-brightness-high'></i><span class='visually-hidden'>Light Mode</span>" data-remove-html="<i class='bi-moon-stars'></i><span class='visually-hidden'>Dark Mode</span>"><span class="visually-hidden">Dark Toggle</span></button>
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="uil uil-angle-up"></div>
+
+	<!-- JavaScripts
+	============================================= -->
+	<script src="js/plugins.min.js"></script>
+	<script src="js/functions.bundle.js"></script>
+	<script src="js/components-loader.js"></script>
+	<script src="js/works-loader.js"></script>
+
+	<!-- 滑動卡片功能 -->
+	<script>
+		// 漢堡選單狀態
+		let isMenuOpen = false;
+
+		// 漢堡選單切換功能
+		function toggleMenu() {
+			const hamburgerBtn = document.getElementById('hamburgerBtn');
+			const dropdown = document.getElementById('hamburgerDropdown');
+
+			isMenuOpen = !isMenuOpen;
+
+			if (isMenuOpen) {
+				hamburgerBtn.classList.add('active');
+				dropdown.classList.add('active');
+			} else {
+				hamburgerBtn.classList.remove('active');
+				dropdown.classList.remove('active');
+			}
+		}
+
+		// 選單項目功能
+		function goHome() {
+			window.location.href = '/';
+			closeMenu();
+		}
+
+		function nextPage() {
+			// 獲取滑動器實例
+			if (window.worksSlider) {
+				window.worksSlider.nextSlide();
+			}
+			closeMenu();
+		}
+
+		function prevPage() {
+			// 獲取滑動器實例
+			if (window.worksSlider) {
+				window.worksSlider.prevSlide();
+			}
+			closeMenu();
+		}
+
+		function closeMenu() {
+			const hamburgerBtn = document.getElementById('hamburgerBtn');
+			const dropdown = document.getElementById('hamburgerDropdown');
+
+			isMenuOpen = false;
+			hamburgerBtn.classList.remove('active');
+			dropdown.classList.remove('active');
+		}
+
+		// 點擊外部關閉選單
+		document.addEventListener('click', function(event) {
+			const hamburgerBtn = document.getElementById('hamburgerBtn');
+			const dropdown = document.getElementById('hamburgerDropdown');
+
+			if (!hamburgerBtn.contains(event.target) && !dropdown.contains(event.target)) {
+				if (isMenuOpen) {
+					closeMenu();
+				}
+			}
+		});
+
+		// ESC鍵關閉選單
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'Escape' && isMenuOpen) {
+				closeMenu();
+			}
+		});
+
+		// 滑動控制功能
+		class WorksSlider {
+			constructor() {
+				this.slider = document.getElementById('shop');
+				this.indicators = document.getElementById('sliderIndicators');
+				this.currentIndex = 0;
+				this.itemsVisible = 3; // 可見卡片數量
+				this.init();
+			}
+
+			init() {
+				// 等待works-loader.js載入完成後初始化滑動功能
+				setTimeout(() => {
+					this.setupSlider();
+				}, 1000);
+			}
+
+			setupSlider() {
+				if (!this.slider) return;
+
+				const cards = this.slider.querySelectorAll('.work-card');
+				if (cards.length === 0) return;
+
+				// 創建滑動指示器
+				this.createIndicators(Math.ceil(cards.length / this.itemsVisible));
+
+				// 設置鍵盤控制
+				this.setupKeyboard();
+
+				// 設置觸控滑動
+				this.setupTouch();
+			}
+
+			createIndicators(count) {
+				this.indicators.innerHTML = '';
+				for (let i = 0; i < count; i++) {
+					const dot = document.createElement('div');
+					dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+					dot.addEventListener('click', () => this.goToSlide(i));
+					this.indicators.appendChild(dot);
+				}
+			}
+
+			goToSlide(index) {
+				const cards = this.slider.querySelectorAll('.work-card');
+				if (cards.length === 0) return;
+
+				const maxIndex = Math.ceil(cards.length / this.itemsVisible) - 1;
+				this.currentIndex = Math.max(0, Math.min(index, maxIndex));
+
+				const scrollAmount = this.currentIndex * (cards[0].offsetWidth + 20) * this.itemsVisible;
+				this.slider.scrollTo({
+					left: scrollAmount,
+					behavior: 'smooth'
+				});
+
+				// 更新指示器
+				this.updateIndicators();
+			}
+
+			updateIndicators() {
+				const dots = this.indicators.querySelectorAll('.slider-dot');
+				dots.forEach((dot, index) => {
+					dot.classList.toggle('active', index === this.currentIndex);
+				});
+			}
+
+			nextSlide() {
+				const cards = this.slider.querySelectorAll('.work-card');
+				const maxIndex = Math.ceil(cards.length / this.itemsVisible) - 1;
+				if (this.currentIndex < maxIndex) {
+					this.goToSlide(this.currentIndex + 1);
+				}
+			}
+
+			prevSlide() {
+				if (this.currentIndex > 0) {
+					this.goToSlide(this.currentIndex - 1);
+				}
+			}
+
+			setupKeyboard() {
+				document.addEventListener('keydown', (e) => {
+					switch (e.key) {
+						case 'ArrowLeft':
+							e.preventDefault();
+							this.prevSlide();
+							break;
+						case 'ArrowRight':
+							e.preventDefault();
+							this.nextSlide();
+							break;
+					}
+				});
+			}
+
+			setupTouch() {
+				let startX = 0;
+				let scrollLeft = 0;
+
+				this.slider.addEventListener('touchstart', (e) => {
+					startX = e.touches[0].pageX - this.slider.offsetLeft;
+					scrollLeft = this.slider.scrollLeft;
+				});
+
+				this.slider.addEventListener('touchmove', (e) => {
+					e.preventDefault();
+					const x = e.touches[0].pageX - this.slider.offsetLeft;
+					const walk = (x - startX) * 2;
+					this.slider.scrollLeft = scrollLeft - walk;
+				});
+			}
+		}
+
+		// 初始化滑動器
+		document.addEventListener('DOMContentLoaded', () => {
+			window.worksSlider = new WorksSlider();
+		});
+	</script>
+
+</body>
+</html>
